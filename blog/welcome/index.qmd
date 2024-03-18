@@ -1,0 +1,10 @@
+---
+title: "Welcome To My Blog"
+author: "Yurkov Sergey"
+date: "2024-01-01"
+categories: [python]
+---
+
+This is the first blog post. Welcome!
+
+![](thumbnail.jpg)

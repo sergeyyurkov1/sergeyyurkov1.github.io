@@ -1,0 +1,13 @@
+---
+title: "Yurkov Sergey"
+image: https://avatars.githubusercontent.com/u/38420364?v=4
+about:
+  template: jolla
+  links:
+    - icon: github
+      text: Github
+      href: https://github.com
+
+---
+
+About me

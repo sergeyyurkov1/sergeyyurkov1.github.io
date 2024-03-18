@@ -1,0 +1,16 @@
+- title: First Item
+  href: https://www.quarto.org
+  thumbnail: https://quarto.org/docs/gallery/articles/articles-html.png
+  code: https://github.com
+- title: Second Item
+  href: https://www.quarto.org
+  thumbnail: https://quarto.org/docs/gallery/articles/articles-html.png
+  code: https://github.com
+- title: Third Item
+  href: https://www.quarto.org
+  thumbnail: https://quarto.org/docs/gallery/articles/articles-html.png
+  code: https://github.com
+- title: Fourth Item
+  href: https://www.quarto.org
+  thumbnail: https://quarto.org/docs/gallery/articles/articles-html.png
+  code: https://github.com

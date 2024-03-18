@@ -1,0 +1,16 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "Yurkov Sergey"
+  navbar:
+    right:
+      - projects.qmd
+      - blog.qmd
+      - certificates.qmd
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
