@@ -1,0 +1,27 @@
+[
+  {
+    "listing": "/software.html",
+    "items": []
+  },
+  {
+    "listing": "/notes.html",
+    "items": []
+  },
+  {
+    "listing": "/certificates.html",
+    "items": []
+  },
+  {
+    "listing": "/blog.html",
+    "items": [
+      "/blog/nicegui_pyinstaller_github-actions/index.html",
+      "/blog/mouse_to_joystick/index.html"
+    ]
+  },
+  {
+    "listing": "/projects1.html",
+    "items": [
+      "/projects/welcome/index.html"
+    ]
+  }
+]
