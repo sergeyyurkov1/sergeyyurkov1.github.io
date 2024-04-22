@@ -1,0 +1,55 @@
+---
+title: "Automate packaging NiceGUI apps with PyInstaller and releasing them with Github Actions -- a complete workflow"
+author: "Yurkov Sergey"
+date: "2024-04-19"
+categories: [python, nicegui, pyinstaller, github-actions]
+
+reference-location: margin
+citation-location: margin
+---
+
+![](thumbnail.png)
+
+Having learned the practice of CI/CD, I decided to apply this technique to continuously deliver some of my projects starting with a recent NiceGUI app -- [File Copier](https://github.com/sergeyyurkov1/file-copier).
+
+Initially, I went to Github Marketplace and searched for pre-build `PyInstaller` actions. Because I'm packaging for the Windows platform I ended up selecting [PyInstaller Windows](https://github.com/marketplace/actions/pyinstaller-windows) which is the most popular action in the category at the time of writing.
+
+```yaml
+- name: PyInstaller Windows
+  uses: JackMcKew/pyinstaller-action-windows@main
+  with:
+    path: src
+```
+
+The above code snippet shows how easy it is to integrate this action into the workflow. However, I encountered three problems with this approach:
+
+- the first one is architectural -- despite being Windows-oriented, this action runs inside a Linux (Ubuntu) container and uses Wine for cross-compilation. The reason for this is that PyInstaller currently does not cross-compile executables meaning that it cannot produce `.exe` files on Linux, therefore there is the need for a translation layer -- Wine. Since 2021, Github gives you the ability to run workflows inside a Windows container which reduces the complexity and basically makes the aforementioned action obsolete.
+- the second problem is related to NiceGUI and the way it needs to be discovered by PyInstaller. It requires the use of an intermediary step -- running a `build.py` file by the Python interpreter. Since `PyInstaller Windows` abstracts away the run steps, there is no way to properly configure NiceGUI for PyInstaller.
+- the third one is also architectural and requires generating a `.spec` file on a local machine before committing it into a remote repository for later use in an actual workflow, which in my opinion, defeats the purpose of CI/CD.
+
+With that said, there was the need for an alternative approach. Below is what I was able to come up with.
+
+<!-- prettier-ignore -->
+```yaml
+{{< include python-app.yml >}}
+```
+
+First, we set up the trigger -- a push event on the tags which help us mark a commit for release. We can add tags with the folloing command: `git tag -a v1.0 -m "Release version 1.0"`. Later when we push changes to the `main` branch we also push them on the tag: `git push origin main v1.0` which activates the release action.
+
+Second, we set up write access to the repository for uploading a compiled executable to releases. Then, we specify the container for the jobs to run inside of -- in this case `windows-2019`. Now onto the actual workflow:
+
+- we set up Python 3.10 environment and install our project requirements
+- we run the `build.py` file as documented [here](https://nicegui.io/documentation/section_configuration_deployment#package_for_installation) but with minor modifications. First is the "--name" that specifies the filename of our future executable -- in my case `file-copier`.exe. Second is the `--onefile` flag. Currently, it is not possible to correctly package `pywebview` with PyInstaller (which is what `nicegui` internally depends on) on Github Actions with the `--onedir` flag due to a [regression](https://github.com/r0x0r/pywebview/issues/1215) in another package -- `pythonnet`. One comment [proposed](https://github.com/r0x0r/pywebview/issues/1215#issuecomment-1917744153) to downgrade `pythonnet` from version `3` to version `2.5.2`, however because there is no binary wheel available for version `2.5.2` for Python 3.10, building it from source inside Github Actions results in an error due to a missing compiler. One possible way to resolve this error is to try older versions of Python -- 3.9 or 3.8. Another [problem](https://github.com/pyinstaller/pyinstaller/issues/6754) I faced is that executables built with the `--onefile` flag may false-trigger an antivirus on the end-user machine, as `--onefile` executables unpack themselves on each run which is similar to how many malicious programs behave. In this case, the antivirus can delete the executable. One can instruct the user to restore the file from quarantine and assure him or her of its safety. As I said, one can try different Python versions to try and downgrade the `pythonnet` package and test the result.
+
+::: {.callout-warning}
+**Update**: While it is possible to downgrade and build the `pythonnet` package with Python 3.8 and 3.9 in a Windows container on Github Actions, running the final executable still results in an exception.
+:::
+
+<!-- prettier-ignore -->
+```python
+{{< include build.py >}}
+```
+
+- finally, we set up the release action `technote-space/action-gh-release@v2` and point it to the newly built executable `./dist/file-copier.exe`
+
+After all these steps are done with, we can see the v1.0 release on the repository page.
