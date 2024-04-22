@@ -14,6 +14,7 @@
   {
     "listing": "/blog.html",
     "items": [
+      "/blog/peaks_and_dips.html",
       "/blog/nicegui_pyinstaller_github-actions/index.html",
       "/blog/mouse_to_joystick/index.html"
     ]
