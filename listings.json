@@ -1,9 +1,5 @@
 [
   {
-    "listing": "/software.html",
-    "items": []
-  },
-  {
     "listing": "/notes.html",
     "items": []
   },
@@ -12,17 +8,21 @@
     "items": []
   },
   {
-    "listing": "/blog.html",
-    "items": [
-      "/blog/peaks_and_dips.html",
-      "/blog/nicegui_pyinstaller_github-actions/index.html",
-      "/blog/mouse_to_joystick/index.html"
-    ]
-  },
-  {
     "listing": "/projects1.html",
     "items": [
       "/projects/welcome/index.html"
+    ]
+  },
+  {
+    "listing": "/software.html",
+    "items": []
+  },
+  {
+    "listing": "/blog.html",
+    "items": [
+      "/blog/peaks_and_dips/peaks_and_dips.html",
+      "/blog/nicegui_pyinstaller_github-actions/index.html",
+      "/blog/mouse_to_joystick/index.html"
     ]
   }
 ]
