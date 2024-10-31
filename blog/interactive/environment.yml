@@ -1,0 +1,13 @@
+name: interactive
+channels:
+  - conda-forge
+dependencies:
+  - python=3.10
+  - jupyter
+  - numpy
+  - pandas
+  - matplotlib
+  - scikit-learn
+  - tensorflow
+  - keras
+  - scipy

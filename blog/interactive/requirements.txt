@@ -1,0 +1,21 @@
+--prefer-binary
+
+# jupyter
+notebook
+numpy
+# numpy<2
+pandas
+matplotlib
+scikit-learn
+# tensorflow
+tensorflow==2.10.0
+tensorflow-hub
+# tensorflow-text
+tensorflow-text==2.10.0
+keras
+scipy
+requests
+natasha
+# Keras-Preprocessing
+# keras-nlp
+# keras-nlp-nightly

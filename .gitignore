@@ -1,0 +1,6 @@
+.conda
+.venv
+/.quarto/
+*.zip
+*.tsv
+*.csv

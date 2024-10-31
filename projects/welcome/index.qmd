@@ -1,0 +1,21 @@
+---
+title: "Project 1"
+date: "2024-01-01"
+categories: [python]
+include-after-body:
+  # file: script.js
+  text: |
+    <style>
+      iframe {
+        width: 100%;
+        height: calc(100vh - 60px);
+      }
+    </style>
+---
+
+Project 1
+
+```{=html}
+<iframe src="https://quarto.org/"></iframe>
+<!-- allow="fullscreen" -->
+```

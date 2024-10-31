@@ -1,0 +1,10 @@
+---
+title: "Certificates"
+listing:
+  template: custom.ejs
+  contents: certificates.yml
+
+page-layout: full
+title-block-banner: true
+comments: false
+---
