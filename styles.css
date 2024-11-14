@@ -1,0 +1,5 @@
+/* .g-col-sm-12, */
+.g-col-md-12 {
+  max-width: 50%;
+  justify-self: center;
+}
