@@ -1,0 +1,24 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "Yurkov Sergey"
+  navbar:
+    right:
+      - software.qmd
+      - blog.qmd
+      - text: CSDN
+        url: https://blog.csdn.net/sergeyyurkov1
+        target: _blank
+      - certificates.qmd
+      # - notes.qmd
+
+  comments:
+    utterances:
+      repo: sergeyyurkov1/blog
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css

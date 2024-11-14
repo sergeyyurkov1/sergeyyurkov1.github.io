@@ -1,0 +1,36 @@
+---
+title: "Yurkov Sergey (谢尔盖)"
+image: https://avatars.githubusercontent.com/u/38420364?v=4
+about:
+  template: jolla
+  links:
+    - icon: github
+      text: Github
+      href: https://github.com/sergeyyurkov1
+comments: false
+format:
+  html:
+    include-after-body:
+      - text: |
+          <script>
+            function ping() {
+              const urls = ['https://vaccination-goals.onrender.com/'];
+
+              for (const url of urls) {
+                fetch(url)
+                  .then(response => response.ok)
+                  .then(ok => console.log(url, ok))
+                  .catch(e => console.log(url, e));
+              }
+            }
+            ping();
+          </script>
+---
+
+Computational social scientist, data analyst, and developer. PhD student. I work with Python, R, SQL, HTML/CSS & JavaScript.
+
+---
+
+_"absolutely professional work big thanks again for dedicated support"_ -- [arbeitauslagern](https://www.fiverr.com/sergeyyurkov1), Germany
+
+_"Professional work big thanks for your support. The result is even better than expected. He really knows what he is doing."_ -- [arbeitauslagern](https://www.fiverr.com/sergeyyurkov1), Germany

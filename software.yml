@@ -1,0 +1,28 @@
+- title: Vaccination Goal Visualizer
+  href: https://vaccination-goals-ys.streamlit.app/
+  thumbnail: project_images/Snipaste_2024-04-12_18-47-07.png
+  # description:
+- title: DistroWatch Data Explorer
+  href: https://distrowatch-ys.streamlit.app/
+  thumbnail: project_images/Snipaste_2024-10-30_14-59-48_2.png
+  # description:
+- title: Python OS
+  href: https://github.com/sergeyyurkov1/pythonos
+  thumbnail: https://github.com/sergeyyurkov1/pythonos/blob/master/screenshots/vlcsnap-2024-11-14-17h35m14s508.png?raw=true
+  description: This project is a spiritual successor to Snakeware, an attempt to create an OS similar to Commodore KERNAL but running Python instead of BASIC programming language. Runs TUI written with Textual inspired by Sevastolink terminals in the game Alien Isolation and other games such as Atomic Heart.
+- title: File Copier
+  href: https://github.com/sergeyyurkov1/file-copier
+  thumbnail: project_images/Snipaste_2024-03-23_23-03-04.png
+  description: Native app written in Python and web GUI to search and copy/move files from nested folders into a single folder; useful for cleaning old WeChat/QQ backups that may have important files that you want to save. I didn't find any program that could do that, so I wrote my own.
+- title: PDF Summarizer & Renamer
+  href: https://github.com/sergeyyurkov1/NLP
+  thumbnail: project_images/Snipaste_2024-04-10_13-32-54.png
+  description: Briefly summarizes PDFs in German and English and renames the files accordingly. Uses 3 different models from fastest and least accurate to slowest and most accurate (T5 transformer); can handle individual files as well as batch-process multiple documents.
+- title: MarktGuru Scraper
+  href: https://github.com/sergeyyurkov1/marktguru_scraper_2
+  thumbnail: project_images/Snipaste_2024-04-10_14-07-34.png
+  description: Native app written in Python and web GUI that searches for lowest price products in the shopping list in German supermarkets and prepares a detailed report.<br /><br />Main features:<br />- ZIP code selection<br />- System to filter out unwanted results<br />- Blacklist function to assist the filter<br />- Excel export<br />- The ability to mark lowest price either by the item searched or by product name<br />- Responsive UI
+- title: Custom document management system
+  href: https://github.com/sergeyyurkov1/OCR-2
+  thumbnail: project_images/Snipaste_2024-04-10_14-41-42.png
+  description: OCR application with the ability to identify and repair damaged and encrypted files -- tested on thousands of archived documents.<br /><br />Main features:<br />- Tesseract engine<br />- OCR settings panel<br />- Blockchain that keeps track of file changes<br />- Log panel for debugging<br />- CRON-like scheduling<br />- Ability to mark files for redoing OCR with another method on the next run<br />- Desktop+Mobile UI

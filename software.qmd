@@ -1,0 +1,10 @@
+---
+title: "Projects & Software"
+listing:
+  template: custom.ejs
+  contents: software.yml
+
+page-layout: full
+title-block-banner: true
+comments: false
+---

@@ -1,0 +1,15 @@
+--prefer-binary
+
+notebook
+numpy
+pandas
+matplotlib
+scikit-learn
+scipy
+requests
+natasha
+tensorflow==2.10 # ~=2.15.0
+tensorflow-text==2.10
+keras==2.10
+Keras-Preprocessing
+keras-tuner
