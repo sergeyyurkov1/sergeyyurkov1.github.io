@@ -27,3 +27,19 @@
   href: https://github.com/sergeyyurkov1/OCR-2
   thumbnail: project_images/Snipaste_2024-04-10_14-41-42.png
   description: OCR application with the ability to identify and repair damaged and encrypted files -- tested on thousands of archived documents.<br /><br />Main features:<br />- Tesseract engine<br />- OCR settings panel<br />- Blockchain that keeps track of file changes<br />- Log panel for debugging<br />- CRON-like scheduling<br />- Ability to mark files for redoing OCR with another method on the next run<br />- Desktop+Mobile UI
+- title: ADS-B Tracker
+  # href: 
+  thumbnail: project_images/01.jpg
+  description: Simple flight tracker and weather radar
+- title: Drawing for Two
+  # href: 
+  thumbnail: project_images/03.jpg
+  description: A shared drawing app for two... maybe even three
+- title: APIs
+  # href: 
+  thumbnail: project_images/05.jpg
+  description: Collection of data endpoints for my projects
+- title: Telegram bot
+  # href: 
+  thumbnail: project_images/06.jpg
+  description: A multi-tool for my internet needs
