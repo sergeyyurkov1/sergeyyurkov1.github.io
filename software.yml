@@ -7,7 +7,8 @@
   thumbnail: project_images/Snipaste_2024-10-30_14-59-48_2.png
   # description:
 - title: Python OS
-  href: https://github.com/sergeyyurkov1/pythonos
+  href: https://www.bilibili.com/video/BV1yNBZYuENB/
+  code: https://github.com/sergeyyurkov1/pythonos
   thumbnail: https://github.com/sergeyyurkov1/pythonos/blob/master/screenshots/vlcsnap-2024-11-14-17h35m14s508.png?raw=true
   description: This project is a spiritual successor to Snakeware, an attempt to create an OS similar to Commodore KERNAL but running Python instead of BASIC programming language. Runs TUI written with Textual inspired by Sevastolink terminals in the game Alien Isolation and other games such as Atomic Heart.
 - title: File Copier
