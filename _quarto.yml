@@ -7,7 +7,7 @@ website:
   navbar:
     right:
       - software.qmd
-      - blog.qmd
+      # - blog.qmd
       - text: CSDN
         url: https://blog.csdn.net/sergeyyurkov1
         target: _blank
