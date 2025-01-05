@@ -1,20 +1,10 @@
 [
   {
-    "listing": "/notes.html",
-    "items": []
-  },
-  {
     "listing": "/certificates.html",
     "items": []
   },
   {
-    "listing": "/projects1.html",
-    "items": [
-      "/projects/welcome/index.html"
-    ]
-  },
-  {
-    "listing": "/software.html",
+    "listing": "/notes.html",
     "items": []
   },
   {
@@ -23,6 +13,16 @@
       "/blog/peaks_and_dips/peaks_and_dips.html",
       "/blog/nicegui_pyinstaller_github-actions/index.html",
       "/blog/mouse_to_joystick/index.html"
+    ]
+  },
+  {
+    "listing": "/software.html",
+    "items": []
+  },
+  {
+    "listing": "/projects1.html",
+    "items": [
+      "/projects/welcome/index.html"
     ]
   }
 ]
