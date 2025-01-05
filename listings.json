@@ -4,15 +4,9 @@
     "items": []
   },
   {
-    "listing": "/notes.html",
-    "items": []
-  },
-  {
-    "listing": "/blog.html",
+    "listing": "/projects1.html",
     "items": [
-      "/blog/peaks_and_dips/peaks_and_dips.html",
-      "/blog/nicegui_pyinstaller_github-actions/index.html",
-      "/blog/mouse_to_joystick/index.html"
+      "/projects/welcome/index.html"
     ]
   },
   {
@@ -20,9 +14,11 @@
     "items": []
   },
   {
-    "listing": "/projects1.html",
-    "items": [
-      "/projects/welcome/index.html"
-    ]
+    "listing": "/blog.html",
+    "items": []
+  },
+  {
+    "listing": "/notes.html",
+    "items": []
   }
 ]
