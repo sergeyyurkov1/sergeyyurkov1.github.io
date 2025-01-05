@@ -1,3 +1,11 @@
+- title: Neural Network from Scratch in Cangjie
+  href: https://blog.csdn.net/sergeyyurkov1/article/details/144308219
+  thumbnail: project_images/3e65f802190a456bbc618faf5c22a31b.png
+  description: Recreation of an artificial neural network described in the book Neural Networks from Scratch by Harrison Kinsley in Cangjie instead of Python.
+- title: Numcj - Numpy alternative for Cangjie
+  href: https://sergeyyurkov1.github.io/numcj/
+  thumbnail: project_images/Snipaste_2025-01-04_17-44-45.png
+  description: 基于matrix4cj numcj重新创建numpy中的函数和API
 - title: Vaccination Goal Visualizer
   href: https://vaccination-goals-ys.streamlit.app/
   thumbnail: project_images/Snipaste_2024-04-12_18-47-07.png
@@ -9,7 +17,7 @@
 - title: Python OS
   href: https://www.bilibili.com/video/BV1yNBZYuENB/
   code: https://github.com/sergeyyurkov1/pythonos
-  thumbnail: https://github.com/sergeyyurkov1/pythonos/blob/master/screenshots/vlcsnap-2024-11-14-17h35m14s508.png?raw=true
+  thumbnail: project_images/2.png
   description: This project is a spiritual successor to Snakeware, an attempt to create an OS similar to Commodore KERNAL but running Python instead of BASIC programming language. Runs TUI written with Textual inspired by Sevastolink terminals in the game Alien Isolation and other games such as Atomic Heart.
 - title: File Copier
   href: https://github.com/sergeyyurkov1/file-copier

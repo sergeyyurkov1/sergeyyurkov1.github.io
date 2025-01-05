@@ -1,9 +1,0 @@
-conda create -n keras_nlp python=3.10
-
-conda activate keras_nlp
-
-python -m pip install -r requirements2.txt
-
-conda list
-
-conda install conda-forge::

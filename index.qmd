@@ -27,7 +27,7 @@ format:
           </script>
 ---
 
-Computational social scientist, data analyst, and developer. PhD student. I work with Python, R, SQL, HTML/CSS & JavaScript.
+Computational social scientist, data analyst, and developer. PhD student. I work with Python, Huawei Cangjie, SQL, HTML/CSS & JavaScript.
 
 ---
 

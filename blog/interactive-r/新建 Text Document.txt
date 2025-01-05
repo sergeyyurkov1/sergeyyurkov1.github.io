@@ -1,7 +1,0 @@
-conda create -n r_env r-essentials r-base
-
-conda activate r_env
-
-conda list
-
-conda install conda-forge::r-plspm

@@ -1,8 +1,0 @@
---prefer-binary
-
-jupyter
-notebook
-numpy<2
-pandas
-scikit-learn
-keras-nlp==0.6.0
