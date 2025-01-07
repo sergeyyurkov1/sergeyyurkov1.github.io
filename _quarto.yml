@@ -6,17 +6,20 @@ website:
   title: "Yurkov Sergey"
   navbar:
     right:
+      - text: CV
+        url: https://app.enhancv.com/share/2619c338/?utm_medium=growth&utm_campaign=share-resume&utm_source=dynamic
+        target: _blank
       - software.qmd
       # - blog.qmd
-      - text: CSDN
+      - text: Blog
         url: https://blog.csdn.net/sergeyyurkov1
         target: _blank
       - certificates.qmd
       # - notes.qmd
 
-  comments:
-    utterances:
-      repo: sergeyyurkov1/blog
+  # comments:
+  #   utterances:
+  #     repo: sergeyyurkov1/blog
 
 format:
   html:
