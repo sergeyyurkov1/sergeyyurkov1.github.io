@@ -4,9 +4,20 @@
     "items": []
   },
   {
-    "listing": "/projects1.html",
+    "listing": "/notes.html",
+    "items": []
+  },
+  {
+    "listing": "/projects.html",
     "items": [
-      "/projects/welcome/index.html"
+      "/projects/time_series_visualizer.html",
+      "/projects/medical_data_visualizer.html"
+    ]
+  },
+  {
+    "listing": "/blog.html",
+    "items": [
+      "/blog/Untitled-1.html"
     ]
   },
   {
@@ -14,11 +25,10 @@
     "items": []
   },
   {
-    "listing": "/blog.html",
-    "items": []
-  },
-  {
-    "listing": "/notes.html",
-    "items": []
+    "listing": "/projects1.html",
+    "items": [
+      "/projects/time_series_visualizer.html",
+      "/projects/medical_data_visualizer.html"
+    ]
   }
 ]
