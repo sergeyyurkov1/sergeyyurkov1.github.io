@@ -10,7 +10,7 @@ website:
         url: https://app.enhancv.com/share/2619c338/?utm_medium=growth&utm_campaign=share-resume&utm_source=dynamic
         target: _blank
       - software.qmd
-      # - blog.qmd
+      # - projects.qmd
       - text: Blog
         url: https://blog.csdn.net/sergeyyurkov1
         target: _blank

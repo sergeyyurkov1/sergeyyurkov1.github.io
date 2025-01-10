@@ -19,6 +19,14 @@
   code: https://github.com/sergeyyurkov1/pythonos
   thumbnail: project_images/2.png
   description: This project is a spiritual successor to Snakeware, an attempt to create an OS similar to Commodore KERNAL but running Python instead of BASIC programming language. Runs TUI written with Textual inspired by Sevastolink terminals in the game Alien Isolation and other games such as Atomic Heart.
+- title: Medical Data Visualizer
+  href: /projects/medical_data_visualizer.html
+  thumbnail: projects/screenshot-rocks-heatmap.png
+  # description: 
+- title: Page View Time Series Visualizer
+  href: projects/time_series_visualizer.html
+  thumbnail: projects/screenshot-rocks-2.png
+  # description: 
 - title: File Copier
   href: https://github.com/sergeyyurkov1/file-copier
   thumbnail: project_images/Snipaste_2024-03-23_23-03-04.png
