@@ -4,7 +4,7 @@
   description: Recreation of an artificial neural network described in the book Neural Networks from Scratch by Harrison Kinsley in Cangjie instead of Python.
 - title: Numcj - Numpy alternative for Cangjie
   href: https://sergeyyurkov1.github.io/numcj/
-  thumbnail: project_images/Snipaste_2025-01-04_17-44-45.png
+  thumbnail: project_images/screenshot-rocks-2.png
   description: 基于matrix4cj numcj重新创建numpy中的函数和API
 - title: Vaccination Goal Visualizer
   href: https://vaccination-goals-ys.streamlit.app/
@@ -45,12 +45,20 @@
   description: OCR application with the ability to identify and repair damaged and encrypted files -- tested on thousands of archived documents.<br /><br />Main features:<br />- Tesseract engine<br />- OCR settings panel<br />- Blockchain that keeps track of file changes<br />- Log panel for debugging<br />- CRON-like scheduling<br />- Ability to mark files for redoing OCR with another method on the next run<br />- Desktop+Mobile UI
 - title: ADS-B Tracker
   # href: 
-  thumbnail: project_images/01.jpg
+  thumbnail: project_images/screenshot-rocks-10.png
   description: Simple flight tracker and weather radar
 - title: Drawing for Two
   # href: 
-  thumbnail: project_images/03.jpg
-  description: A shared drawing app for two... maybe even three
+  thumbnail: project_images/screenshot-rocks-3.png
+  description: A shared drawing app for two... maybe even three. Made with Websockets and a custom Flask server.
+- title: Peer-to-peer Conference App
+  # href: 
+  thumbnail: project_images/screenshot-rocks-4.png
+  description: An installable multi peer-to-peer conference PWA that includes video chat capability, screen-sharing on desktop, sending messages and images. Made with Vue, WebRTC and a custom STUN server.
+- title: Rock Paper Scissors Lizard Spock Game
+  # href: 
+  thumbnail: project_images/screenshot-rocks-5.png
+  description: Play against the computer and see your highscore.
 - title: APIs
   # href: 
   thumbnail: project_images/05.jpg
