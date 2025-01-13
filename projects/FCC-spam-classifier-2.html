@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.40">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2024-01-01">
+
+<title>Spam Classifier Model – Yurkov Sergey</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-c75bcb89907db7808f0349b764a1a524.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed fullcontent">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Yurkov Sergey</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://app.enhancv.com/share/2619c338/?utm_medium=growth&amp;utm_campaign=share-resume&amp;utm_source=dynamic" target="_blank"> 
+<span class="menu-text">CV</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../software.html"> 
+<span class="menu-text">Projects &amp; Software</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://blog.csdn.net/sergeyyurkov1" target="_blank"> 
+<span class="menu-text">Blog</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../certificates.html"> 
+<span class="menu-text">Certificates</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Spam Classifier Model</h1>
+                                <div class="quarto-categories">
+                <div class="quarto-category">python</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">January 1, 2024</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<div id="cell-1" class="cell" data-cell_id="902bc329e21340a0869c41bcce890741" data-deepnote_cell_type="code" data-deepnote_to_be_reexecuted="false" data-execution_millis="9159" data-execution_start="1689689778424" data-output_cleared="false" data-source_hash="null" data-execution_count="30">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> tensorflow <span class="im">as</span> tf</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> tensorflow <span class="im">import</span> keras</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(tf.__version__)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>2.18.0</code></pre>
+</div>
+</div>
+<div id="cell-2" class="cell" data-execution_count="31">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># import requests</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># url = "https://cdn.freecodecamp.org/project-data/sms/train-data.tsv"</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># query_parameters = {"downloadformat": "tsv"}</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co"># response = requests.get(url, params=query_parameters)</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co"># with open("train-data.tsv", mode="wb") as file:</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co">#     file.write(response.content)</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co"># url = "https://cdn.freecodecamp.org/project-data/sms/valid-data.tsv"</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co"># query_parameters = {"downloadformat": "tsv"}</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co"># response = requests.get(url, params=query_parameters)</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="co"># with open("valid-data.tsv", mode="wb") as file:</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="co">#     file.write(response.content)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-3" class="cell" data-cell_id="537d8c50112943cbac245916d47da951" data-deepnote_cell_type="code" data-deepnote_to_be_reexecuted="false" data-execution_millis="790" data-execution_start="1689689787494" data-output_cleared="false" data-source_hash="null" data-execution_count="32">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>train_file_path <span class="op">=</span> <span class="st">"train-data.tsv"</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>test_file_path <span class="op">=</span> <span class="st">"valid-data.tsv"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-4" class="cell" data-cell_id="ec1ca0ae082740ae89692d120724d663" data-deepnote_cell_type="code" data-deepnote_to_be_reexecuted="false" data-execution_millis="34" data-execution_start="1689689788102" data-source_hash="null" data-execution_count="33">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>header_names <span class="op">=</span> [<span class="st">"label"</span>, <span class="st">"message"</span>]</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>df_train <span class="op">=</span> pd.read_csv(</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    train_file_path, sep<span class="op">=</span><span class="st">"</span><span class="ch">\t</span><span class="st">"</span>, encoding<span class="op">=</span><span class="st">"utf-8"</span>, header<span class="op">=</span><span class="va">None</span>, names<span class="op">=</span>header_names</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>df_test <span class="op">=</span> pd.read_csv(</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    test_file_path, sep<span class="op">=</span><span class="st">"</span><span class="ch">\t</span><span class="st">"</span>, encoding<span class="op">=</span><span class="st">"utf-8"</span>, header<span class="op">=</span><span class="va">None</span>, names<span class="op">=</span>header_names</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-5" class="cell" data-cell_id="aa372ff8d70740a0a94dc12bfbd85e57" data-deepnote_cell_type="code" data-deepnote_to_be_reexecuted="false" data-execution_millis="354" data-execution_start="1689689788129" data-source_hash="null" data-execution_count="34">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>df_test.sample(<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="34">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">label</th>
+<th data-quarto-table-cell-role="th">message</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1349</td>
+<td>ham</td>
+<td>yeah sure thing mate haunt got all my stuff so...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">725</td>
+<td>ham</td>
+<td>i just got home babe, are you still awake ?</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">234</td>
+<td>ham</td>
+<td>finally it has happened..! aftr decades..! bee...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1191</td>
+<td>ham</td>
+<td>it‘s £6 to get in, is that ok?</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">715</td>
+<td>ham</td>
+<td>hello. damn this christmas thing. i think i ha...</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="cell-6" class="cell" data-cell_id="6652cb45713e48c8a56e11719fc0d1cd" data-deepnote_cell_type="code" data-deepnote_to_be_reexecuted="false" data-execution_millis="24" data-execution_start="1689689788345" data-source_hash="null" data-execution_count="35">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>label_map <span class="op">=</span> {<span class="st">"ham"</span>: <span class="dv">0</span>, <span class="st">"spam"</span>: <span class="dv">1</span>}</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>df_train[<span class="st">"label"</span>] <span class="op">=</span> df_train[<span class="st">"label"</span>].<span class="bu">map</span>(label_map)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>df_test[<span class="st">"label"</span>] <span class="op">=</span> df_test[<span class="st">"label"</span>].<span class="bu">map</span>(label_map)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-7" class="cell" data-cell_id="2694f648d32c485b8a201291ee415813" data-deepnote_cell_type="code" data-deepnote_to_be_reexecuted="false" data-execution_millis="8" data-execution_start="1689689788348" data-source_hash="null" data-execution_count="36">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>entity_map <span class="op">=</span> {</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#33;"</span>: <span class="st">"!"</span>,</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#34;"</span>: <span class="st">'"'</span>,</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#35;"</span>: <span class="st">"#"</span>,</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#36;"</span>: <span class="st">"$"</span>,</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#37;"</span>: <span class="st">"%"</span>,</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#38;"</span>: <span class="st">"&amp;"</span>,</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#39;"</span>: <span class="st">"'"</span>,</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#40;"</span>: <span class="st">"("</span>,</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#41;"</span>: <span class="st">")"</span>,</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#42;"</span>: <span class="st">"*"</span>,</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#43;"</span>: <span class="st">"+"</span>,</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#44;"</span>: <span class="st">","</span>,</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#45;"</span>: <span class="st">"-"</span>,</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#46;"</span>: <span class="st">"."</span>,</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#47;"</span>: <span class="st">"/"</span>,</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#48;"</span>: <span class="st">"0"</span>,</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#49;"</span>: <span class="st">"1"</span>,</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#50;"</span>: <span class="st">"2"</span>,</span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#51;"</span>: <span class="st">"3"</span>,</span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#52;"</span>: <span class="st">"4"</span>,</span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#53;"</span>: <span class="st">"5"</span>,</span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#54;"</span>: <span class="st">"6"</span>,</span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#55;"</span>: <span class="st">"7"</span>,</span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#56;"</span>: <span class="st">"8"</span>,</span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#57;"</span>: <span class="st">"9"</span>,</span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#58;"</span>: <span class="st">":"</span>,</span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#59;"</span>: <span class="st">";"</span>,</span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#60;"</span>: <span class="st">"&lt;"</span>,</span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#61;"</span>: <span class="st">"="</span>,</span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#62;"</span>: <span class="st">"&gt;"</span>,</span>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#63;"</span>: <span class="st">"?"</span>,</span>
+<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#64;"</span>: <span class="st">"@"</span>,</span>
+<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#65;"</span>: <span class="st">"A"</span>,</span>
+<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#66;"</span>: <span class="st">"B"</span>,</span>
+<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#67;"</span>: <span class="st">"C"</span>,</span>
+<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#68;"</span>: <span class="st">"D"</span>,</span>
+<span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#69;"</span>: <span class="st">"E"</span>,</span>
+<span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#70;"</span>: <span class="st">"F"</span>,</span>
+<span id="cb8-40"><a href="#cb8-40" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#71;"</span>: <span class="st">"G"</span>,</span>
+<span id="cb8-41"><a href="#cb8-41" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#72;"</span>: <span class="st">"H"</span>,</span>
+<span id="cb8-42"><a href="#cb8-42" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#73;"</span>: <span class="st">"I"</span>,</span>
+<span id="cb8-43"><a href="#cb8-43" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#74;"</span>: <span class="st">"J"</span>,</span>
+<span id="cb8-44"><a href="#cb8-44" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#75;"</span>: <span class="st">"K"</span>,</span>
+<span id="cb8-45"><a href="#cb8-45" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#76;"</span>: <span class="st">"L"</span>,</span>
+<span id="cb8-46"><a href="#cb8-46" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#77;"</span>: <span class="st">"M"</span>,</span>
+<span id="cb8-47"><a href="#cb8-47" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#78;"</span>: <span class="st">"N"</span>,</span>
+<span id="cb8-48"><a href="#cb8-48" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#79;"</span>: <span class="st">"O"</span>,</span>
+<span id="cb8-49"><a href="#cb8-49" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#80;"</span>: <span class="st">"P"</span>,</span>
+<span id="cb8-50"><a href="#cb8-50" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#81;"</span>: <span class="st">"Q"</span>,</span>
+<span id="cb8-51"><a href="#cb8-51" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#82;"</span>: <span class="st">"R"</span>,</span>
+<span id="cb8-52"><a href="#cb8-52" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#83;"</span>: <span class="st">"S"</span>,</span>
+<span id="cb8-53"><a href="#cb8-53" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#84;"</span>: <span class="st">"T"</span>,</span>
+<span id="cb8-54"><a href="#cb8-54" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#85;"</span>: <span class="st">"U"</span>,</span>
+<span id="cb8-55"><a href="#cb8-55" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#86;"</span>: <span class="st">"V"</span>,</span>
+<span id="cb8-56"><a href="#cb8-56" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#87;"</span>: <span class="st">"W"</span>,</span>
+<span id="cb8-57"><a href="#cb8-57" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#88;"</span>: <span class="st">"X"</span>,</span>
+<span id="cb8-58"><a href="#cb8-58" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#89;"</span>: <span class="st">"Y"</span>,</span>
+<span id="cb8-59"><a href="#cb8-59" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#90;"</span>: <span class="st">"Z"</span>,</span>
+<span id="cb8-60"><a href="#cb8-60" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#91;"</span>: <span class="st">"["</span>,</span>
+<span id="cb8-61"><a href="#cb8-61" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#92;"</span>: <span class="st">"</span><span class="ch">\\</span><span class="st">"</span>,</span>
+<span id="cb8-62"><a href="#cb8-62" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#93;"</span>: <span class="st">"]"</span>,</span>
+<span id="cb8-63"><a href="#cb8-63" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#94;"</span>: <span class="st">"^"</span>,</span>
+<span id="cb8-64"><a href="#cb8-64" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#95;"</span>: <span class="st">"_"</span>,</span>
+<span id="cb8-65"><a href="#cb8-65" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#96;"</span>: <span class="st">"`"</span>,</span>
+<span id="cb8-66"><a href="#cb8-66" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#97;"</span>: <span class="st">"a"</span>,</span>
+<span id="cb8-67"><a href="#cb8-67" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#98;"</span>: <span class="st">"b"</span>,</span>
+<span id="cb8-68"><a href="#cb8-68" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#99;"</span>: <span class="st">"c"</span>,</span>
+<span id="cb8-69"><a href="#cb8-69" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#100;"</span>: <span class="st">"d"</span>,</span>
+<span id="cb8-70"><a href="#cb8-70" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#101;"</span>: <span class="st">"e"</span>,</span>
+<span id="cb8-71"><a href="#cb8-71" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#102;"</span>: <span class="st">"f"</span>,</span>
+<span id="cb8-72"><a href="#cb8-72" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#103;"</span>: <span class="st">"g"</span>,</span>
+<span id="cb8-73"><a href="#cb8-73" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#104;"</span>: <span class="st">"h"</span>,</span>
+<span id="cb8-74"><a href="#cb8-74" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#105;"</span>: <span class="st">"i"</span>,</span>
+<span id="cb8-75"><a href="#cb8-75" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#106;"</span>: <span class="st">"j"</span>,</span>
+<span id="cb8-76"><a href="#cb8-76" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#107;"</span>: <span class="st">"k"</span>,</span>
+<span id="cb8-77"><a href="#cb8-77" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#108;"</span>: <span class="st">"l"</span>,</span>
+<span id="cb8-78"><a href="#cb8-78" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#109;"</span>: <span class="st">"m"</span>,</span>
+<span id="cb8-79"><a href="#cb8-79" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#110;"</span>: <span class="st">"n"</span>,</span>
+<span id="cb8-80"><a href="#cb8-80" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#111;"</span>: <span class="st">"o"</span>,</span>
+<span id="cb8-81"><a href="#cb8-81" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#112;"</span>: <span class="st">"p"</span>,</span>
+<span id="cb8-82"><a href="#cb8-82" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#113;"</span>: <span class="st">"q"</span>,</span>
+<span id="cb8-83"><a href="#cb8-83" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#114;"</span>: <span class="st">"r"</span>,</span>
+<span id="cb8-84"><a href="#cb8-84" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#115;"</span>: <span class="st">"s"</span>,</span>
+<span id="cb8-85"><a href="#cb8-85" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#116;"</span>: <span class="st">"t"</span>,</span>
+<span id="cb8-86"><a href="#cb8-86" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#117;"</span>: <span class="st">"u"</span>,</span>
+<span id="cb8-87"><a href="#cb8-87" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#118;"</span>: <span class="st">"v"</span>,</span>
+<span id="cb8-88"><a href="#cb8-88" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#119;"</span>: <span class="st">"w"</span>,</span>
+<span id="cb8-89"><a href="#cb8-89" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#120;"</span>: <span class="st">"x"</span>,</span>
+<span id="cb8-90"><a href="#cb8-90" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#121;"</span>: <span class="st">"y"</span>,</span>
+<span id="cb8-91"><a href="#cb8-91" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#122;"</span>: <span class="st">"z"</span>,</span>
+<span id="cb8-92"><a href="#cb8-92" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#123;"</span>: <span class="st">"{"</span>,</span>
+<span id="cb8-93"><a href="#cb8-93" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#124;"</span>: <span class="st">"|"</span>,</span>
+<span id="cb8-94"><a href="#cb8-94" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#125;"</span>: <span class="st">"}"</span>,</span>
+<span id="cb8-95"><a href="#cb8-95" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#126;"</span>: <span class="st">"~"</span>,</span>
+<span id="cb8-96"><a href="#cb8-96" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;larr;"</span>: <span class="st">"←"</span>,</span>
+<span id="cb8-97"><a href="#cb8-97" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;uarr;"</span>: <span class="st">"↑"</span>,</span>
+<span id="cb8-98"><a href="#cb8-98" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;rarr;"</span>: <span class="st">"→"</span>,</span>
+<span id="cb8-99"><a href="#cb8-99" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;darr;"</span>: <span class="st">"↓"</span>,</span>
+<span id="cb8-100"><a href="#cb8-100" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;harr;"</span>: <span class="st">"↔"</span>,</span>
+<span id="cb8-101"><a href="#cb8-101" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;lArr;"</span>: <span class="st">"⇐"</span>,</span>
+<span id="cb8-102"><a href="#cb8-102" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;uArr;"</span>: <span class="st">"⇑"</span>,</span>
+<span id="cb8-103"><a href="#cb8-103" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;rArr;"</span>: <span class="st">"⇒"</span>,</span>
+<span id="cb8-104"><a href="#cb8-104" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;dArr;"</span>: <span class="st">"⇓"</span>,</span>
+<span id="cb8-105"><a href="#cb8-105" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;hArr;"</span>: <span class="st">"⇔"</span>,</span>
+<span id="cb8-106"><a href="#cb8-106" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;lsquo;"</span>: <span class="st">"‘"</span>,</span>
+<span id="cb8-107"><a href="#cb8-107" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;rsquo;"</span>: <span class="st">"’"</span>,</span>
+<span id="cb8-108"><a href="#cb8-108" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;ldquo;"</span>: <span class="st">"“"</span>,</span>
+<span id="cb8-109"><a href="#cb8-109" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;rdquo;"</span>: <span class="st">"”"</span>,</span>
+<span id="cb8-110"><a href="#cb8-110" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#8218;"</span>: <span class="st">"‚"</span>,</span>
+<span id="cb8-111"><a href="#cb8-111" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#8222;"</span>: <span class="st">"„"</span>,</span>
+<span id="cb8-112"><a href="#cb8-112" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;ndash;"</span>: <span class="st">"-"</span>,</span>
+<span id="cb8-113"><a href="#cb8-113" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;mdash;"</span>: <span class="st">"–"</span>,</span>
+<span id="cb8-114"><a href="#cb8-114" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;nbsp;"</span>: <span class="st">" "</span>,</span>
+<span id="cb8-115"><a href="#cb8-115" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;iexcl;"</span>: <span class="st">"¡"</span>,</span>
+<span id="cb8-116"><a href="#cb8-116" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;sect;"</span>: <span class="st">"§"</span>,</span>
+<span id="cb8-117"><a href="#cb8-117" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;brvbar;"</span>: <span class="st">"¦"</span>,</span>
+<span id="cb8-118"><a href="#cb8-118" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;copy;"</span>: <span class="st">"©"</span>,</span>
+<span id="cb8-119"><a href="#cb8-119" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;reg;"</span>: <span class="st">"®"</span>,</span>
+<span id="cb8-120"><a href="#cb8-120" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#8482;"</span>: <span class="st">"™"</span>,</span>
+<span id="cb8-121"><a href="#cb8-121" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;cent;"</span>: <span class="st">"¢"</span>,</span>
+<span id="cb8-122"><a href="#cb8-122" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;pound;"</span>: <span class="st">"£"</span>,</span>
+<span id="cb8-123"><a href="#cb8-123" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;yen;"</span>: <span class="st">"¥"</span>,</span>
+<span id="cb8-124"><a href="#cb8-124" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;euro;"</span>: <span class="st">"€"</span>,</span>
+<span id="cb8-125"><a href="#cb8-125" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;plusmn;"</span>: <span class="st">"±"</span>,</span>
+<span id="cb8-126"><a href="#cb8-126" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;micro;"</span>: <span class="st">"µ"</span>,</span>
+<span id="cb8-127"><a href="#cb8-127" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;183;"</span>: <span class="st">"·"</span>,</span>
+<span id="cb8-128"><a href="#cb8-128" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;deg;"</span>: <span class="st">"°"</span>,</span>
+<span id="cb8-129"><a href="#cb8-129" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;sup1;"</span>: <span class="st">"¹"</span>,</span>
+<span id="cb8-130"><a href="#cb8-130" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;sup2;"</span>: <span class="st">"²"</span>,</span>
+<span id="cb8-131"><a href="#cb8-131" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;sup3;"</span>: <span class="st">"³"</span>,</span>
+<span id="cb8-132"><a href="#cb8-132" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;para;"</span>: <span class="st">"¶"</span>,</span>
+<span id="cb8-133"><a href="#cb8-133" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;middot;"</span>: <span class="st">"·"</span>,</span>
+<span id="cb8-134"><a href="#cb8-134" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;frac14;"</span>: <span class="st">"¼"</span>,</span>
+<span id="cb8-135"><a href="#cb8-135" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;frac12;"</span>: <span class="st">"½"</span>,</span>
+<span id="cb8-136"><a href="#cb8-136" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;frac34;"</span>: <span class="st">"¾"</span>,</span>
+<span id="cb8-137"><a href="#cb8-137" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;iquest;"</span>: <span class="st">"¿"</span>,</span>
+<span id="cb8-138"><a href="#cb8-138" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#8224;"</span>: <span class="st">"†"</span>,</span>
+<span id="cb8-139"><a href="#cb8-139" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#8225;"</span>: <span class="st">"‡"</span>,</span>
+<span id="cb8-140"><a href="#cb8-140" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#8226;"</span>: <span class="st">"•"</span>,</span>
+<span id="cb8-141"><a href="#cb8-141" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;#8230;"</span>: <span class="st">"…"</span>,</span>
+<span id="cb8-142"><a href="#cb8-142" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-8" class="cell" data-cell_id="2d512c4b0e854f9ea95f6ff6de2b81a9" data-deepnote_cell_type="code" data-deepnote_to_be_reexecuted="false" data-execution_millis="26" data-execution_start="1689689788389" data-source_hash="null" data-execution_count="37">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>train_X <span class="op">=</span> df_train[<span class="st">"message"</span>]</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>test_X <span class="op">=</span> df_test[<span class="st">"message"</span>]</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>train_y <span class="op">=</span> df_train[<span class="st">"label"</span>]</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>test_y <span class="op">=</span> df_test[<span class="st">"label"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-9" class="cell" data-cell_id="cc3b95ba1e8d45c8af61bc0e2db6c645" data-deepnote_cell_type="code" data-deepnote_to_be_reexecuted="false" data-execution_millis="8" data-execution_start="1689689788390" data-source_hash="null" data-execution_count="38">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>train_X</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="38">
+<pre><code>0       ahhhh...just woken up!had a bad dream about u ...
+1                                you can never do nothing
+2       now u sound like manky scouse boy steve,like! ...
+3       mum say we wan to go then go... then she can s...
+4       never y lei... i v lazy... got wat? dat day ü ...
+                              ...                        
+4174    just woke up. yeesh its late. but i didn't fal...
+4175    what do u reckon as need 2 arrange transport i...
+4176    free entry into our £250 weekly competition ju...
+4177    -pls stop bootydelious (32/f) is inviting you ...
+4178    tell my  bad character which u dnt lik in me. ...
+Name: message, Length: 4179, dtype: object</code></pre>
+</div>
+</div>
+<div id="cell-10" class="cell" data-cell_id="4dde90763df643dfa68d42945fc8ee2e" data-deepnote_cell_type="code" data-deepnote_to_be_reexecuted="false" data-execution_millis="626" data-execution_start="1689689788391" data-source_hash="null" data-execution_count="39">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> re</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> string</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> custom_standardizer(x):</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> entity_map:</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>        x <span class="op">=</span> tf.strings.regex_replace(x, re.escape(i), entity_map.get(i, <span class="st">""</span>))</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> tf.strings.lower(x)</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> tf.strings.regex_replace(x, <span class="ss">f"[</span><span class="sc">{</span>re<span class="sc">.</span>escape(string.punctuation)<span class="sc">}</span><span class="ss">]"</span>, <span class="st">""</span>)</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>vectorization <span class="op">=</span> keras.layers.TextVectorization(</span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># standardize=custom_standardizer,</span></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>    max_tokens<span class="op">=</span><span class="dv">20_000</span>,</span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>    output_mode<span class="op">=</span><span class="st">"int"</span>,</span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>    output_sequence_length<span class="op">=</span><span class="dv">500</span>,</span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>vectorization.adapt(np.array(train_X))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-11" class="cell" data-cell_id="f5c80e0e0af545ea988b1b5439dd1fc0" data-deepnote_cell_type="code" data-deepnote_to_be_reexecuted="false" data-execution_millis="370" data-execution_start="1689689788916" data-source_hash="null" data-execution_count="40">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> tf.keras.Sequential(</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    [</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>        vectorization,</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>        keras.layers.Embedding(<span class="dv">20_000</span> <span class="op">+</span> <span class="dv">1</span>, <span class="dv">128</span>, input_length<span class="op">=</span><span class="dv">500</span>),</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>        keras.layers.Dropout(<span class="fl">0.5</span>),</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>        keras.layers.Conv1D(<span class="dv">128</span>, <span class="dv">7</span>, padding<span class="op">=</span><span class="st">"valid"</span>, activation<span class="op">=</span><span class="st">"relu"</span>, strides<span class="op">=</span><span class="dv">3</span>),</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>        keras.layers.Conv1D(<span class="dv">128</span>, <span class="dv">7</span>, padding<span class="op">=</span><span class="st">"valid"</span>, activation<span class="op">=</span><span class="st">"relu"</span>, strides<span class="op">=</span><span class="dv">3</span>),</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>        keras.layers.GlobalMaxPooling1D(),</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>        keras.layers.Dense(<span class="dv">128</span>, activation<span class="op">=</span><span class="st">"relu"</span>),</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>        keras.layers.Dropout(<span class="fl">0.5</span>),</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>        keras.layers.Dense(<span class="dv">1</span>, activation<span class="op">=</span><span class="st">"sigmoid"</span>, name<span class="op">=</span><span class="st">"predictions"</span>),</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>model.<span class="bu">compile</span>(</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>    loss<span class="op">=</span><span class="st">"binary_crossentropy"</span>,</span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>    optimizer<span class="op">=</span><span class="st">"adam"</span>,</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>    metrics<span class="op">=</span>[<span class="st">"accuracy"</span>],</span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>model.summary()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>d:\My_Projects\blog\blog\interactive\.venv\lib\site-packages\keras\src\layers\core\embedding.py:90: UserWarning: Argument `input_length` is deprecated. Just remove it.
+  warnings.warn(</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="font-weight: bold">Model: "sequential_2"</span>
+</pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━┓
+┃<span style="font-weight: bold"> Layer (type)                    </span>┃<span style="font-weight: bold"> Output Shape           </span>┃<span style="font-weight: bold">       Param # </span>┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━┩
+│ text_vectorization_1            │ ?                      │   <span style="color: #00af00; text-decoration-color: #00af00">0</span> (unbuilt) │
+│ (<span style="color: #0087ff; text-decoration-color: #0087ff">TextVectorization</span>)             │                        │               │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ embedding_2 (<span style="color: #0087ff; text-decoration-color: #0087ff">Embedding</span>)         │ ?                      │   <span style="color: #00af00; text-decoration-color: #00af00">0</span> (unbuilt) │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ dropout_4 (<span style="color: #0087ff; text-decoration-color: #0087ff">Dropout</span>)             │ ?                      │             <span style="color: #00af00; text-decoration-color: #00af00">0</span> │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ conv1d_4 (<span style="color: #0087ff; text-decoration-color: #0087ff">Conv1D</span>)               │ ?                      │   <span style="color: #00af00; text-decoration-color: #00af00">0</span> (unbuilt) │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ conv1d_5 (<span style="color: #0087ff; text-decoration-color: #0087ff">Conv1D</span>)               │ ?                      │   <span style="color: #00af00; text-decoration-color: #00af00">0</span> (unbuilt) │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ global_max_pooling1d_2          │ ?                      │             <span style="color: #00af00; text-decoration-color: #00af00">0</span> │
+│ (<span style="color: #0087ff; text-decoration-color: #0087ff">GlobalMaxPooling1D</span>)            │                        │               │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ dense_2 (<span style="color: #0087ff; text-decoration-color: #0087ff">Dense</span>)                 │ ?                      │   <span style="color: #00af00; text-decoration-color: #00af00">0</span> (unbuilt) │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ dropout_5 (<span style="color: #0087ff; text-decoration-color: #0087ff">Dropout</span>)             │ ?                      │             <span style="color: #00af00; text-decoration-color: #00af00">0</span> │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ predictions (<span style="color: #0087ff; text-decoration-color: #0087ff">Dense</span>)             │ ?                      │   <span style="color: #00af00; text-decoration-color: #00af00">0</span> (unbuilt) │
+└─────────────────────────────────┴────────────────────────┴───────────────┘
+</pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="font-weight: bold"> Total params: </span><span style="color: #00af00; text-decoration-color: #00af00">0</span> (0.00 B)
+</pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="font-weight: bold"> Trainable params: </span><span style="color: #00af00; text-decoration-color: #00af00">0</span> (0.00 B)
+</pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="font-weight: bold"> Non-trainable params: </span><span style="color: #00af00; text-decoration-color: #00af00">0</span> (0.00 B)
+</pre>
+</div>
+</div>
+<div id="cell-12" class="cell" data-cell_id="058861d6d460465a8465a7485fe4b539" data-deepnote_cell_type="code" data-deepnote_to_be_reexecuted="false" data-execution_millis="83430" data-execution_start="1689689789172" data-source_hash="null" data-execution_count="41">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>history <span class="op">=</span> model.fit(</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    train_X,</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    train_y,</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    validation_data<span class="op">=</span>(test_X, test_y),</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    batch_size<span class="op">=</span><span class="dv">32</span>,</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    epochs<span class="op">=</span><span class="dv">3</span>,</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    verbose<span class="op">=</span><span class="dv">1</span>,</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 1/3
+131/131 ━━━━━━━━━━━━━━━━━━━━ 8s 43ms/step - accuracy: 0.8469 - loss: 0.4181 - val_accuracy: 0.9820 - val_loss: 0.0693
+Epoch 2/3
+131/131 ━━━━━━━━━━━━━━━━━━━━ 5s 40ms/step - accuracy: 0.9828 - loss: 0.0651 - val_accuracy: 0.9856 - val_loss: 0.0606
+Epoch 3/3
+131/131 ━━━━━━━━━━━━━━━━━━━━ 5s 39ms/step - accuracy: 0.9955 - loss: 0.0202 - val_accuracy: 0.9820 - val_loss: 0.0609</code></pre>
+</div>
+</div>
+<div id="cell-13" class="cell" data-cell_id="adf6fa7e1b314b2092f574427eb787fb" data-deepnote_cell_type="code" data-deepnote_to_be_reexecuted="false" data-execution_millis="530" data-execution_start="1689689872595" data-source_hash="null" data-execution_count="42">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_loss(history):</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    plt.plot(history.history[<span class="st">"loss"</span>], label<span class="op">=</span><span class="st">"tra_loss"</span>)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    plt.plot(history.history[<span class="st">"val_loss"</span>], label<span class="op">=</span><span class="st">"val_loss"</span>)</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    plt.ylim([<span class="dv">0</span>, <span class="fl">0.5</span>])</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    plt.xlabel(<span class="st">"Epoch"</span>)</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    plt.ylabel(<span class="st">"Error"</span>)</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>    plt.legend()</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>    plt.grid(<span class="va">True</span>)</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>plot_loss(history)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="FCC-spam-classifier-2_files/figure-html/cell-14-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="cell-14" class="cell" data-cell_id="8a1deb27ee214de8945968370626f8ec" data-deepnote_cell_type="code" data-deepnote_to_be_reexecuted="false" data-execution_millis="260" data-execution_start="1689689872940" data-source_hash="null" data-execution_count="43">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># function to predict messages based on model</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="co"># (should return list containing prediction and label, ex. [0.008318834938108921, 'ham'])</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> predict_message(pred_text):</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">type</span>(pred_text) <span class="kw">is</span> <span class="bu">str</span>:</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>        pred_text <span class="op">=</span> np.array([pred_text]).astype(<span class="bu">object</span>)</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">type</span>(pred_text) <span class="kw">is</span> <span class="bu">list</span>:</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>        pred_text <span class="op">=</span> np.array(pred_text).astype(<span class="bu">object</span>)</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>    prediction <span class="op">=</span> model.predict(pred_text)</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>    score <span class="op">=</span> prediction[<span class="dv">0</span>][<span class="dv">0</span>]</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> score <span class="op">&gt;</span> <span class="fl">0.5</span>:</span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> [score, <span class="st">"spam"</span>]</span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> [score, <span class="st">"ham"</span>]</span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a><span class="co"># pred_text = "how are you doing today?"</span></span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>pred_text <span class="op">=</span> [</span>
+<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>    <span class="st">"how are you doing today"</span>,</span>
+<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>    <span class="st">"sale today! to stop texts call 98912460324"</span>,</span>
+<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a>    <span class="st">"i dont want to go. can we try it a different day? available sat"</span>,</span>
+<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a>    <span class="st">"our new mobile video service is live. just install on your phone to start watching."</span>,</span>
+<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a>    <span class="st">"you have won £1000 cash! call to claim your prize."</span>,</span>
+<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a>    <span class="st">"i'll bring it tomorrow. don't forget the milk."</span>,</span>
+<span id="cb18-26"><a href="#cb18-26" aria-hidden="true" tabindex="-1"></a>    <span class="st">"wow, is your arm alright. that happened to me one time too"</span>,</span>
+<span id="cb18-27"><a href="#cb18-27" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb18-28"><a href="#cb18-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-29"><a href="#cb18-29" aria-hidden="true" tabindex="-1"></a>prediction <span class="op">=</span> predict_message(pred_text)</span>
+<span id="cb18-30"><a href="#cb18-30" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(prediction)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 183ms/step
+[np.float32(0.0054872185), 'ham']</code></pre>
+</div>
+</div>
+<div id="cell-15" class="cell" data-cell_id="d710583cf3ae4c8eb8d1ab2a60bd29d5" data-deepnote_cell_type="code" data-deepnote_to_be_reexecuted="false" data-execution_millis="328" data-execution_start="1689689873228" data-source_hash="null" data-execution_count="44">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run this cell to test your function and model. Do not modify contents.</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> test_predictions():</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    test_messages <span class="op">=</span> [</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>        <span class="st">"how are you doing today"</span>,</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>        <span class="st">"sale today! to stop texts call 98912460324"</span>,</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>        <span class="st">"i dont want to go. can we try it a different day? available sat"</span>,</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>        <span class="st">"our new mobile video service is live. just install on your phone to start watching."</span>,</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>        <span class="st">"you have won £1000 cash! call to claim your prize."</span>,</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>        <span class="st">"i'll bring it tomorrow. don't forget the milk."</span>,</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>        <span class="st">"wow, is your arm alright. that happened to me one time too"</span>,</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>    test_answers <span class="op">=</span> [<span class="st">"ham"</span>, <span class="st">"spam"</span>, <span class="st">"ham"</span>, <span class="st">"spam"</span>, <span class="st">"spam"</span>, <span class="st">"ham"</span>, <span class="st">"ham"</span>]</span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>    passed <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> msg, ans <span class="kw">in</span> <span class="bu">zip</span>(test_messages, test_answers):</span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>        prediction <span class="op">=</span> predict_message(msg)</span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> prediction[<span class="dv">1</span>] <span class="op">!=</span> ans:</span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>            passed <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> passed:</span>
+<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"You passed the challenge. Great job!"</span>)</span>
+<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"You haven't passed yet. Keep trying."</span>)</span>
+<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a>test_predictions()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 197ms/step
+1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 33ms/step
+1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 27ms/step
+1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 50ms/step
+1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 34ms/step
+1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 34ms/step
+1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 24ms/step
+You passed the challenge. Great job!</code></pre>
+</div>
+</div>
+
+
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/sergeyyurkov1\.github\.io\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
