@@ -27,6 +27,10 @@
   href: projects/time_series_visualizer.html
   thumbnail: projects/screenshot-rocks-2.png
   # description: 
+- title: Sea Level Predictor
+  href: projects/sea_level_predictor.html
+  thumbnail: projects/screenshot-rocks-3.png
+  # description: 
 
 - title: Spam Classifier Model
   href: projects/FCC-spam-classifier-2.html
