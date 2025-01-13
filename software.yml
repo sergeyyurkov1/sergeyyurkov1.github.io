@@ -29,19 +29,19 @@
   # description: 
 
 - title: Spam Classifier Model
-  href: projects/fcc-spam-classifier-2.html
+  href: projects/FCC-spam-classifier-2.html
   thumbnail: projects/screenshot-rocks-k.png
   # description: 
 - title: Health Costs Predictor Model
-  href: projects/fcc-health-costs-predictor.html
+  href: projects/FCC-health-costs-predictor.html
   thumbnail: project_images/7775262_3746188.jpg
   # description: 
 - title: Book Recommendation Model
-  href: projects/fcc-book-recommendation.html
+  href: projects/FCC-book-recommendation.html
   thumbnail: projects/screenshot-rocks-s.png
   # description: 
 - title: Toxicity Classifier in Russian
-  href: projects/blstm-toxicity-classifier-ru.html
+  href: projects/bLSTM-toxicity-classifier-RU.html
   thumbnail: projects/screenshot-rocks-k.png
   # description: 
 
