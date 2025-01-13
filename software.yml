@@ -27,6 +27,24 @@
   href: projects/time_series_visualizer.html
   thumbnail: projects/screenshot-rocks-2.png
   # description: 
+
+- title: Spam Classifier Model
+  href: projects/fcc-spam-classifier-2.html
+  thumbnail: projects/screenshot-rocks-k.png
+  # description: 
+- title: Health Costs Predictor Model
+  href: projects/fcc-health-costs-predictor.html
+  thumbnail: project_images/7775262_3746188.jpg
+  # description: 
+- title: Book Recommendation Model
+  href: projects/fcc-book-recommendation.html
+  thumbnail: projects/screenshot-rocks-s.png
+  # description: 
+- title: Toxicity Classifier in Russian
+  href: projects/blstm-toxicity-classifier-ru.html
+  thumbnail: projects/screenshot-rocks-k.png
+  # description: 
+
 - title: File Copier
   href: https://github.com/sergeyyurkov1/file-copier
   thumbnail: project_images/Snipaste_2024-03-23_23-03-04.png
