@@ -191,174 +191,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.sparse <span class="im">import</span> csr_matrix</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.neighbors <span class="im">import</span> NearestNeighbors</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-2" class="cell" data-cell_id="f52c3a5d24b84b5da0a06338aad956ab" data-deepnote_cell_type="code" data-deepnote_to_be_reexecuted="false" data-execution_millis="22" data-execution_start="1689269909985" data-source_hash="null" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># import requests</span></span>
+<div id="cell-2" class="cell" data-cell_id="f52c3a5d24b84b5da0a06338aad956ab" data-deepnote_cell_type="code" data-deepnote_to_be_reexecuted="false" data-execution_millis="22" data-execution_start="1689269909985" data-source_hash="null">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># url = "https://cdn.freecodecamp.org/project-data/books/book-crossings.zip"</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># query_parameters = {"downloadformat": "zip"}</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://cdn.freecodecamp.org/project-data/books/book-crossings.zip"</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>query_parameters <span class="op">=</span> {<span class="st">"downloadformat"</span>: <span class="st">"zip"</span>}</span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># response = requests.get(url, params=query_parameters)</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.get(url, params<span class="op">=</span>query_parameters)</span>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co"># with open("book-crossings.zip", mode="wb") as file:</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co">#     file.write(response.content)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<div class="ansi-escaped-output">
-<pre><span class="ansi-red-fg ansi-bold">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg ansi-bold">OSError</span>                                   Traceback (most recent call last)
-File <span class="ansi-green-fg ansi-bold">d:\My_Projects\blog\blog\interactive\.venv\lib\site-packages\urllib3\connection.py:199</span>, in <span class="ansi-cyan-fg">HTTPConnection._new_conn</span><span class="ansi-blue-fg ansi-bold">(self)</span>
-<span class="ansi-green-fg">    198</span> try:
-<span class="ansi-green-fg ansi-bold">--&gt; 199</span>     sock = connection.create_connection(
-<span class="ansi-green-fg">    200</span>         (self._dns_host, self.port),
-<span class="ansi-green-fg">    201</span>         self.timeout,
-<span class="ansi-green-fg">    202</span>         source_address=self.source_address,
-<span class="ansi-green-fg">    203</span>         socket_options=self.socket_options,
-<span class="ansi-green-fg">    204</span>     )
-<span class="ansi-green-fg">    205</span> except socket.gaierror as e:
-
-File <span class="ansi-green-fg ansi-bold">d:\My_Projects\blog\blog\interactive\.venv\lib\site-packages\urllib3\util\connection.py:85</span>, in <span class="ansi-cyan-fg">create_connection</span><span class="ansi-blue-fg ansi-bold">(address, timeout, source_address, socket_options)</span>
-<span class="ansi-green-fg">     84</span> try:
-<span class="ansi-green-fg ansi-bold">---&gt; 85</span>     raise err
-<span class="ansi-green-fg">     86</span> finally:
-<span class="ansi-green-fg">     87</span>     # Break explicitly a reference cycle
-
-File <span class="ansi-green-fg ansi-bold">d:\My_Projects\blog\blog\interactive\.venv\lib\site-packages\urllib3\util\connection.py:73</span>, in <span class="ansi-cyan-fg">create_connection</span><span class="ansi-blue-fg ansi-bold">(address, timeout, source_address, socket_options)</span>
-<span class="ansi-green-fg">     72</span>     sock.bind(source_address)
-<span class="ansi-green-fg ansi-bold">---&gt; 73</span> sock.connect(sa)
-<span class="ansi-green-fg">     74</span> # Break explicitly a reference cycle
-
-<span class="ansi-red-fg ansi-bold">OSError</span>: [WinError 10065] 套接字操作尝试一个无法连接的主机。
-
-The above exception was the direct cause of the following exception:
-
-<span class="ansi-red-fg ansi-bold">NewConnectionError</span>                        Traceback (most recent call last)
-File <span class="ansi-green-fg ansi-bold">d:\My_Projects\blog\blog\interactive\.venv\lib\site-packages\urllib3\connectionpool.py:775</span>, in <span class="ansi-cyan-fg">HTTPConnectionPool.urlopen</span><span class="ansi-blue-fg ansi-bold">(self, method, url, body, headers, retries, redirect, assert_same_host, timeout, pool_timeout, release_conn, chunked, body_pos, preload_content, decode_content, **response_kw)</span>
-<span class="ansi-green-fg">    774</span> try:
-<span class="ansi-green-fg ansi-bold">--&gt; 775</span>     self._prepare_proxy(conn)
-<span class="ansi-green-fg">    776</span> except (BaseSSLError, OSError, SocketTimeout) as e:
-
-File <span class="ansi-green-fg ansi-bold">d:\My_Projects\blog\blog\interactive\.venv\lib\site-packages\urllib3\connectionpool.py:1044</span>, in <span class="ansi-cyan-fg">HTTPSConnectionPool._prepare_proxy</span><span class="ansi-blue-fg ansi-bold">(self, conn)</span>
-<span class="ansi-green-fg">   1038</span> conn.set_tunnel(
-<span class="ansi-green-fg">   1039</span>     scheme=tunnel_scheme,
-<span class="ansi-green-fg">   1040</span>     host=self._tunnel_host,
-<span class="ansi-green-fg">   1041</span>     port=self.port,
-<span class="ansi-green-fg">   1042</span>     headers=self.proxy_headers,
-<span class="ansi-green-fg">   1043</span> )
-<span class="ansi-green-fg ansi-bold">-&gt; 1044</span> conn.connect()
-
-File <span class="ansi-green-fg ansi-bold">d:\My_Projects\blog\blog\interactive\.venv\lib\site-packages\urllib3\connection.py:693</span>, in <span class="ansi-cyan-fg">HTTPSConnection.connect</span><span class="ansi-blue-fg ansi-bold">(self)</span>
-<span class="ansi-green-fg">    692</span> sock: socket.socket | ssl.SSLSocket
-<span class="ansi-green-fg ansi-bold">--&gt; 693</span> self.sock = sock = self._new_conn()
-<span class="ansi-green-fg">    694</span> server_hostname: str = self.host
-
-File <span class="ansi-green-fg ansi-bold">d:\My_Projects\blog\blog\interactive\.venv\lib\site-packages\urllib3\connection.py:214</span>, in <span class="ansi-cyan-fg">HTTPConnection._new_conn</span><span class="ansi-blue-fg ansi-bold">(self)</span>
-<span class="ansi-green-fg">    213</span> except OSError as e:
-<span class="ansi-green-fg ansi-bold">--&gt; 214</span>     raise NewConnectionError(
-<span class="ansi-green-fg">    215</span>         self, f"Failed to establish a new connection: {e}"
-<span class="ansi-green-fg">    216</span>     ) from e
-<span class="ansi-green-fg">    218</span> # Audit hooks are only available in Python 3.8+
-
-<span class="ansi-red-fg ansi-bold">NewConnectionError</span>: &lt;urllib3.connection.HTTPSConnection object at 0x000001E458F710C0&gt;: Failed to establish a new connection: [WinError 10065] 套接字操作尝试一个无法连接的主机。
-
-The above exception was the direct cause of the following exception:
-
-<span class="ansi-red-fg ansi-bold">ProxyError</span>                                Traceback (most recent call last)
-<span class="ansi-red-fg ansi-bold">ProxyError</span>: ('Unable to connect to proxy', NewConnectionError('&lt;urllib3.connection.HTTPSConnection object at 0x000001E458F710C0&gt;: Failed to establish a new connection: [WinError 10065] 套接字操作尝试一个无法连接的主机。'))
-
-The above exception was the direct cause of the following exception:
-
-<span class="ansi-red-fg ansi-bold">MaxRetryError</span>                             Traceback (most recent call last)
-File <span class="ansi-green-fg ansi-bold">d:\My_Projects\blog\blog\interactive\.venv\lib\site-packages\requests\adapters.py:667</span>, in <span class="ansi-cyan-fg">HTTPAdapter.send</span><span class="ansi-blue-fg ansi-bold">(self, request, stream, timeout, verify, cert, proxies)</span>
-<span class="ansi-green-fg">    666</span> try:
-<span class="ansi-green-fg ansi-bold">--&gt; 667</span>     resp = conn.urlopen(
-<span class="ansi-green-fg">    668</span>         method=request.method,
-<span class="ansi-green-fg">    669</span>         url=url,
-<span class="ansi-green-fg">    670</span>         body=request.body,
-<span class="ansi-green-fg">    671</span>         headers=request.headers,
-<span class="ansi-green-fg">    672</span>         redirect=False,
-<span class="ansi-green-fg">    673</span>         assert_same_host=False,
-<span class="ansi-green-fg">    674</span>         preload_content=False,
-<span class="ansi-green-fg">    675</span>         decode_content=False,
-<span class="ansi-green-fg">    676</span>         retries=self.max_retries,
-<span class="ansi-green-fg">    677</span>         timeout=timeout,
-<span class="ansi-green-fg">    678</span>         chunked=chunked,
-<span class="ansi-green-fg">    679</span>     )
-<span class="ansi-green-fg">    681</span> except (ProtocolError, OSError) as err:
-
-File <span class="ansi-green-fg ansi-bold">d:\My_Projects\blog\blog\interactive\.venv\lib\site-packages\urllib3\connectionpool.py:843</span>, in <span class="ansi-cyan-fg">HTTPConnectionPool.urlopen</span><span class="ansi-blue-fg ansi-bold">(self, method, url, body, headers, retries, redirect, assert_same_host, timeout, pool_timeout, release_conn, chunked, body_pos, preload_content, decode_content, **response_kw)</span>
-<span class="ansi-green-fg">    841</span>     new_e = ProtocolError("Connection aborted.", new_e)
-<span class="ansi-green-fg ansi-bold">--&gt; 843</span> retries = retries.increment(
-<span class="ansi-green-fg">    844</span>     method, url, error=new_e, _pool=self, _stacktrace=sys.exc_info()[2]
-<span class="ansi-green-fg">    845</span> )
-<span class="ansi-green-fg">    846</span> retries.sleep()
-
-File <span class="ansi-green-fg ansi-bold">d:\My_Projects\blog\blog\interactive\.venv\lib\site-packages\urllib3\util\retry.py:519</span>, in <span class="ansi-cyan-fg">Retry.increment</span><span class="ansi-blue-fg ansi-bold">(self, method, url, response, error, _pool, _stacktrace)</span>
-<span class="ansi-green-fg">    518</span>     reason = error or ResponseError(cause)
-<span class="ansi-green-fg ansi-bold">--&gt; 519</span>     raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
-<span class="ansi-green-fg">    521</span> log.debug("Incremented Retry for (url='%s'): %r", url, new_retry)
-
-<span class="ansi-red-fg ansi-bold">MaxRetryError</span>: HTTPSConnectionPool(host='cdn.freecodecamp.org', port=443): Max retries exceeded with url: /project-data/books/book-crossings.zip?downloadformat=zip (Caused by ProxyError('Unable to connect to proxy', NewConnectionError('&lt;urllib3.connection.HTTPSConnection object at 0x000001E458F710C0&gt;: Failed to establish a new connection: [WinError 10065] 套接字操作尝试一个无法连接的主机。')))
-
-During handling of the above exception, another exception occurred:
-
-<span class="ansi-red-fg ansi-bold">ProxyError</span>                                Traceback (most recent call last)
-<span class="ansi-green-fg ansi-bold">d:\My_Projects\blog\blog\interactive\FCC-book-recommendation.ipynb Cell 2</span> line <span class="ansi-cyan-fg">6
-</span><span class="ansi-green-fg">      &lt;a href='vscode-notebook-cell:/d%3A/My_Projects/blog/blog/interactive/FCC-book-recommendation.ipynb#W1sZmlsZQ%3D%3D?line=2'&gt;3&lt;/a&gt;</span> url = "https://cdn.freecodecamp.org/project-data/books/book-crossings.zip"
-<span class="ansi-green-fg">      &lt;a href='vscode-notebook-cell:/d%3A/My_Projects/blog/blog/interactive/FCC-book-recommendation.ipynb#W1sZmlsZQ%3D%3D?line=3'&gt;4&lt;/a&gt;</span> query_parameters = {"downloadformat": "zip"}
-<span class="ansi-green-fg ansi-bold">----&gt; &lt;a href='vscode-notebook-cell:/d%3A/My_Projects/blog/blog/interactive/FCC-book-recommendation.ipynb#W1sZmlsZQ%3D%3D?line=5'&gt;6&lt;/a&gt;</span> response = requests.get(url, params=query_parameters)
-<span class="ansi-green-fg">      &lt;a href='vscode-notebook-cell:/d%3A/My_Projects/blog/blog/interactive/FCC-book-recommendation.ipynb#W1sZmlsZQ%3D%3D?line=7'&gt;8&lt;/a&gt;</span> with open("book-crossings.zip", mode="wb") as file:
-<span class="ansi-green-fg">      &lt;a href='vscode-notebook-cell:/d%3A/My_Projects/blog/blog/interactive/FCC-book-recommendation.ipynb#W1sZmlsZQ%3D%3D?line=8'&gt;9&lt;/a&gt;</span>     file.write(response.content)
-
-File <span class="ansi-green-fg ansi-bold">d:\My_Projects\blog\blog\interactive\.venv\lib\site-packages\requests\api.py:73</span>, in <span class="ansi-cyan-fg">get</span><span class="ansi-blue-fg ansi-bold">(url, params, **kwargs)</span>
-<span class="ansi-green-fg">     62</span> def get(url, params=None, **kwargs):
-<span class="ansi-green-fg">     63</span>     r"""Sends a GET request.
-<span class="ansi-green-fg">     64</span> 
-<span class="ansi-green-fg">     65</span>     :param url: URL for the new :class:`Request` object.
-<span class="ansi-green-fg ansi-bold">   (...)</span>
-<span class="ansi-green-fg">     70</span>     :rtype: requests.Response
-<span class="ansi-green-fg">     71</span>     """
-<span class="ansi-green-fg ansi-bold">---&gt; 73</span>     return request("get", url, params=params, **kwargs)
-
-File <span class="ansi-green-fg ansi-bold">d:\My_Projects\blog\blog\interactive\.venv\lib\site-packages\requests\api.py:59</span>, in <span class="ansi-cyan-fg">request</span><span class="ansi-blue-fg ansi-bold">(method, url, **kwargs)</span>
-<span class="ansi-green-fg">     55</span> # By using the 'with' statement we are sure the session is closed, thus we
-<span class="ansi-green-fg">     56</span> # avoid leaving sockets open which can trigger a ResourceWarning in some
-<span class="ansi-green-fg">     57</span> # cases, and look like a memory leak in others.
-<span class="ansi-green-fg">     58</span> with sessions.Session() as session:
-<span class="ansi-green-fg ansi-bold">---&gt; 59</span>     return session.request(method=method, url=url, **kwargs)
-
-File <span class="ansi-green-fg ansi-bold">d:\My_Projects\blog\blog\interactive\.venv\lib\site-packages\requests\sessions.py:589</span>, in <span class="ansi-cyan-fg">Session.request</span><span class="ansi-blue-fg ansi-bold">(self, method, url, params, data, headers, cookies, files, auth, timeout, allow_redirects, proxies, hooks, stream, verify, cert, json)</span>
-<span class="ansi-green-fg">    584</span> send_kwargs = {
-<span class="ansi-green-fg">    585</span>     "timeout": timeout,
-<span class="ansi-green-fg">    586</span>     "allow_redirects": allow_redirects,
-<span class="ansi-green-fg">    587</span> }
-<span class="ansi-green-fg">    588</span> send_kwargs.update(settings)
-<span class="ansi-green-fg ansi-bold">--&gt; 589</span> resp = self.send(prep, **send_kwargs)
-<span class="ansi-green-fg">    591</span> return resp
-
-File <span class="ansi-green-fg ansi-bold">d:\My_Projects\blog\blog\interactive\.venv\lib\site-packages\requests\sessions.py:703</span>, in <span class="ansi-cyan-fg">Session.send</span><span class="ansi-blue-fg ansi-bold">(self, request, **kwargs)</span>
-<span class="ansi-green-fg">    700</span> start = preferred_clock()
-<span class="ansi-green-fg">    702</span> # Send the request
-<span class="ansi-green-fg ansi-bold">--&gt; 703</span> r = adapter.send(request, **kwargs)
-<span class="ansi-green-fg">    705</span> # Total elapsed time of the request (approximately)
-<span class="ansi-green-fg">    706</span> elapsed = preferred_clock() - start
-
-File <span class="ansi-green-fg ansi-bold">d:\My_Projects\blog\blog\interactive\.venv\lib\site-packages\requests\adapters.py:694</span>, in <span class="ansi-cyan-fg">HTTPAdapter.send</span><span class="ansi-blue-fg ansi-bold">(self, request, stream, timeout, verify, cert, proxies)</span>
-<span class="ansi-green-fg">    691</span>     raise RetryError(e, request=request)
-<span class="ansi-green-fg">    693</span> if isinstance(e.reason, _ProxyError):
-<span class="ansi-green-fg ansi-bold">--&gt; 694</span>     raise ProxyError(e, request=request)
-<span class="ansi-green-fg">    696</span> if isinstance(e.reason, _SSLError):
-<span class="ansi-green-fg">    697</span>     # This branch is for urllib3 v1.22 and later.
-<span class="ansi-green-fg">    698</span>     raise SSLError(e, request=request)
-
-<span class="ansi-red-fg ansi-bold">ProxyError</span>: HTTPSConnectionPool(host='cdn.freecodecamp.org', port=443): Max retries exceeded with url: /project-data/books/book-crossings.zip?downloadformat=zip (Caused by ProxyError('Unable to connect to proxy', NewConnectionError('&lt;urllib3.connection.HTTPSConnection object at 0x000001E458F710C0&gt;: Failed to establish a new connection: [WinError 10065] 套接字操作尝试一个无法连接的主机。')))</pre>
-</div>
-</div>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"book-crossings.zip"</span>, mode<span class="op">=</span><span class="st">"wb"</span>) <span class="im">as</span> <span class="bu">file</span>:</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="bu">file</span>.write(response.content)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="cell-3" class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># import zipfile</span></span>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> zipfile</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># with zipfile.ZipFile("book-crossings.zip", mode="r") as archive:</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">#     for file in archive.namelist():</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">#         archive.extractall("book-crossings/")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> zipfile.ZipFile(<span class="st">"book-crossings.zip"</span>, mode<span class="op">=</span><span class="st">"r"</span>) <span class="im">as</span> archive:</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="bu">file</span> <span class="kw">in</span> archive.namelist():</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>        archive.extractall(<span class="st">"book-crossings/"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="cell-4" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>books_filename <span class="op">=</span> <span class="st">"book-crossings/BX-Books.csv"</span></span>
@@ -385,11 +234,8 @@ File <span class="ansi-green-fg ansi-bold">d:\My_Projects\blog\blog\interactive\
 <span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>    dtype<span class="op">=</span>{<span class="st">"user"</span>: <span class="st">"int32"</span>, <span class="st">"isbn"</span>: <span class="st">"str"</span>, <span class="st">"rating"</span>: <span class="st">"float32"</span>},</span>
 <span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-6" class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> <span class="dv">000</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="cell-7" class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>df_books</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-6" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>df_books</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="6">
 <div>
 
@@ -477,31 +323,31 @@ File <span class="ansi-green-fg ansi-bold">d:\My_Projects\blog\blog\interactive\
 </div>
 </div>
 </div>
-<div id="cell-8" class="cell" data-cell_id="6b67d54b488b44538a2daa4410bb604b" data-deepnote_cell_type="code" data-deepnote_to_be_reexecuted="true" data-execution_millis="735" data-execution_start="1689267852287" data-source_hash="null" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove from the dataset users with less than 200 ratings and books with less than 100 ratings</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Function adapted from</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># https://datascienceplus.com/building-a-book-recommender-system-the-basics-knn-and-matrix-factorization/</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>counts_user <span class="op">=</span> df_ratings[<span class="st">"user"</span>].value_counts()</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>counts_isbn <span class="op">=</span> df_ratings[<span class="st">"isbn"</span>].value_counts()</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>counts_user <span class="op">=</span> counts_user[counts_user <span class="op">&gt;=</span> <span class="dv">200</span>].index</span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>counts_isbn <span class="op">=</span> counts_isbn[counts_isbn <span class="op">&gt;=</span> <span class="dv">100</span>].index</span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>df_ratings_filtered <span class="op">=</span> df_ratings.loc[</span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    (df_ratings[<span class="st">"user"</span>].isin(counts_user.values))</span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">&amp;</span> (df_ratings[<span class="st">"isbn"</span>].isin(counts_isbn.values))</span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>]</span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>df_ratings_filtered.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-7" class="cell" data-cell_id="6b67d54b488b44538a2daa4410bb604b" data-deepnote_cell_type="code" data-deepnote_to_be_reexecuted="true" data-execution_millis="735" data-execution_start="1689267852287" data-source_hash="null" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove from the dataset users with less than 200 ratings and books with less than 100 ratings</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Function adapted from</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># https://datascienceplus.com/building-a-book-recommender-system-the-basics-knn-and-matrix-factorization/</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>counts_user <span class="op">=</span> df_ratings[<span class="st">"user"</span>].value_counts()</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>counts_isbn <span class="op">=</span> df_ratings[<span class="st">"isbn"</span>].value_counts()</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>counts_user <span class="op">=</span> counts_user[counts_user <span class="op">&gt;=</span> <span class="dv">200</span>].index</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>counts_isbn <span class="op">=</span> counts_isbn[counts_isbn <span class="op">&gt;=</span> <span class="dv">100</span>].index</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>df_ratings_filtered <span class="op">=</span> df_ratings.loc[</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    (df_ratings[<span class="st">"user"</span>].isin(counts_user.values))</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">&amp;</span> (df_ratings[<span class="st">"isbn"</span>].isin(counts_isbn.values))</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>df_ratings_filtered.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="7">
 <pre><code>(49781, 3)</code></pre>
 </div>
 </div>
-<div id="cell-9" class="cell" data-cell_id="8b756b6d9be44aed86e95f8a31691308" data-deepnote_cell_type="code" data-deepnote_to_be_reexecuted="true" data-execution_millis="448" data-execution_start="1689267853020" data-source_hash="null" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>df_books_ratings <span class="op">=</span> pd.merge(df_books, df_ratings_filtered, on<span class="op">=</span><span class="st">"isbn"</span>)</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>df_books_ratings[<span class="st">"author"</span>] <span class="op">=</span> df_books_ratings[<span class="st">"author"</span>].<span class="bu">str</span>.title()</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>df_books_ratings</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-8" class="cell" data-cell_id="8b756b6d9be44aed86e95f8a31691308" data-deepnote_cell_type="code" data-deepnote_to_be_reexecuted="true" data-execution_millis="448" data-execution_start="1689267853020" data-source_hash="null" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>df_books_ratings <span class="op">=</span> pd.merge(df_books, df_ratings_filtered, on<span class="op">=</span><span class="st">"isbn"</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>df_books_ratings[<span class="st">"author"</span>] <span class="op">=</span> df_books_ratings[<span class="st">"author"</span>].<span class="bu">str</span>.title()</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>df_books_ratings</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="8">
 <div>
 
@@ -613,18 +459,18 @@ File <span class="ansi-green-fg ansi-bold">d:\My_Projects\blog\blog\interactive\
 </div>
 </div>
 </div>
-<div id="cell-10" class="cell" data-cell_id="ca95854df87f4a4482a3ac90609c65f3" data-deepnote_cell_type="code" data-deepnote_to_be_reexecuted="true" data-execution_millis="57" data-execution_start="1689267853373" data-source_hash="null" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>df_books_ratings.drop_duplicates([<span class="st">"title"</span>, <span class="st">"user"</span>], keep<span class="op">=</span><span class="st">"first"</span>, inplace<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>pivot <span class="op">=</span> df_books_ratings.pivot(index<span class="op">=</span><span class="st">"title"</span>, columns<span class="op">=</span><span class="st">"user"</span>, values<span class="op">=</span><span class="st">"rating"</span>).fillna(<span class="dv">0</span>)</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>pivot.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-9" class="cell" data-cell_id="ca95854df87f4a4482a3ac90609c65f3" data-deepnote_cell_type="code" data-deepnote_to_be_reexecuted="true" data-execution_millis="57" data-execution_start="1689267853373" data-source_hash="null" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>df_books_ratings.drop_duplicates([<span class="st">"title"</span>, <span class="st">"user"</span>], keep<span class="op">=</span><span class="st">"first"</span>, inplace<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>pivot <span class="op">=</span> df_books_ratings.pivot(index<span class="op">=</span><span class="st">"title"</span>, columns<span class="op">=</span><span class="st">"user"</span>, values<span class="op">=</span><span class="st">"rating"</span>).fillna(<span class="dv">0</span>)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>pivot.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="9">
 <pre><code>(673, 888)</code></pre>
 </div>
 </div>
-<div id="cell-11" class="cell" data-cell_id="b6d97ad2034a47029becd0927fdd1fab" data-deepnote_cell_type="code" data-deepnote_table_invalid="false" data-deepnote_table_loading="false" data-deepnote_table_state="{&quot;filters&quot;:[],&quot;pageIndex&quot;:90,&quot;pageSize&quot;:10,&quot;sortBy&quot;:[]}" data-deepnote_to_be_reexecuted="true" data-execution_millis="654" data-execution_start="1689267853462" data-source_hash="null" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>pivot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-10" class="cell" data-cell_id="b6d97ad2034a47029becd0927fdd1fab" data-deepnote_cell_type="code" data-deepnote_table_invalid="false" data-deepnote_table_loading="false" data-deepnote_table_state="{&quot;filters&quot;:[],&quot;pageIndex&quot;:90,&quot;pageSize&quot;:10,&quot;sortBy&quot;:[]}" data-deepnote_to_be_reexecuted="true" data-execution_millis="654" data-execution_start="1689267853462" data-source_hash="null" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>pivot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="10">
 <div>
 
@@ -952,18 +798,18 @@ File <span class="ansi-green-fg ansi-bold">d:\My_Projects\blog\blog\interactive\
 </div>
 </div>
 </div>
-<div id="cell-12" class="cell" data-cell_id="9f0067572d6441c3b825e653686369e6" data-deepnote_cell_type="code" data-deepnote_to_be_reexecuted="true" data-execution_millis="517" data-execution_start="1689267853947" data-source_hash="null" data-execution_count="11">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>matrix <span class="op">=</span> csr_matrix(pivot.values)</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>matrix</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-11" class="cell" data-cell_id="9f0067572d6441c3b825e653686369e6" data-deepnote_cell_type="code" data-deepnote_to_be_reexecuted="true" data-execution_millis="517" data-execution_start="1689267853947" data-source_hash="null" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>matrix <span class="op">=</span> csr_matrix(pivot.values)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>matrix</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="11">
 <pre><code>&lt;Compressed Sparse Row sparse matrix of dtype 'float32'
     with 12423 stored elements and shape (673, 888)&gt;</code></pre>
 </div>
 </div>
-<div id="cell-13" class="cell" data-cell_id="2dfb17a01c98426a8f60e58ca64c8811" data-deepnote_cell_type="code" data-deepnote_to_be_reexecuted="true" data-execution_millis="10" data-execution_start="1689267853963" data-source_hash="null" data-execution_count="12">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> NearestNeighbors(algorithm<span class="op">=</span><span class="st">"brute"</span>, metric<span class="op">=</span><span class="st">"cosine"</span>)</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>model.fit(matrix)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-12" class="cell" data-cell_id="2dfb17a01c98426a8f60e58ca64c8811" data-deepnote_cell_type="code" data-deepnote_to_be_reexecuted="true" data-execution_millis="10" data-execution_start="1689267853963" data-source_hash="null" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> NearestNeighbors(algorithm<span class="op">=</span><span class="st">"brute"</span>, metric<span class="op">=</span><span class="st">"cosine"</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>model.fit(matrix)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="12">
 <style>#sk-container-id-1 {
   /* Definition of color scheme common for light and dark mode */
@@ -1372,56 +1218,56 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </style><div id="sk-container-id-1" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>NearestNeighbors(algorithm='brute', metric='cosine')</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br>On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden=""><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" checked=""><label for="sk-estimator-id-1" class="sk-toggleable__label fitted sk-toggleable__label-arrow fitted">&nbsp;&nbsp;NearestNeighbors<a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.5/modules/generated/sklearn.neighbors.NearestNeighbors.html">?<span>Documentation for NearestNeighbors</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></label><div class="sk-toggleable__content fitted"><pre>NearestNeighbors(algorithm='brute', metric='cosine')</pre></div> </div></div></div></div>
 </div>
 </div>
-<div id="cell-14" class="cell" data-cell_id="e4fe2cbbf0c2467abd1042620b7bf767" data-deepnote_cell_type="code" data-deepnote_to_be_reexecuted="true" data-execution_millis="105" data-execution_start="1689267853999" data-source_hash="null" data-execution_count="13">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># function to return recommended books - this will be tested</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Function adapted from</span></span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co"># https://datascienceplus.com/building-a-book-recommender-system-the-basics-knn-and-matrix-factorization/</span></span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_recommends(book<span class="op">=</span><span class="st">""</span>):</span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    distances, indices <span class="op">=</span> model.kneighbors(</span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>        pivot.loc[book, :].values.reshape(<span class="dv">1</span>, <span class="op">-</span><span class="dv">1</span>), n_neighbors<span class="op">=</span><span class="dv">5</span></span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>    recommended_books <span class="op">=</span> []</span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>    recommended_books.append(book)</span>
-<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>    recommended_books.append([])</span>
-<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="bu">len</span>(distances.flatten())):</span>
-<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>        recommended_books[<span class="dv">1</span>].insert(</span>
-<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>            <span class="dv">0</span>, [pivot.index[indices.flatten()[i]], distances.flatten()[i]]</span>
-<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>        )</span>
-<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> recommended_books</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-13" class="cell" data-cell_id="e4fe2cbbf0c2467abd1042620b7bf767" data-deepnote_cell_type="code" data-deepnote_to_be_reexecuted="true" data-execution_millis="105" data-execution_start="1689267853999" data-source_hash="null" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># function to return recommended books - this will be tested</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Function adapted from</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co"># https://datascienceplus.com/building-a-book-recommender-system-the-basics-knn-and-matrix-factorization/</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_recommends(book<span class="op">=</span><span class="st">""</span>):</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>    distances, indices <span class="op">=</span> model.kneighbors(</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>        pivot.loc[book, :].values.reshape(<span class="dv">1</span>, <span class="op">-</span><span class="dv">1</span>), n_neighbors<span class="op">=</span><span class="dv">5</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>    recommended_books <span class="op">=</span> []</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>    recommended_books.append(book)</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>    recommended_books.append([])</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="bu">len</span>(distances.flatten())):</span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>        recommended_books[<span class="dv">1</span>].insert(</span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>            <span class="dv">0</span>, [pivot.index[indices.flatten()[i]], distances.flatten()[i]]</span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> recommended_books</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-15" class="cell" data-cell_id="d2e167885a54449bbf3e7404415cf883" data-deepnote_cell_type="code" data-deepnote_to_be_reexecuted="true" data-execution_millis="13" data-execution_start="1689267854013" data-source_hash="null" data-execution_count="14">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>books <span class="op">=</span> get_recommends(<span class="st">"Where the Heart Is (Oprah's Book Club (Paperback))"</span>)</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pprint</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>pprint.pprint(books)</span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> test_book_recommendation():</span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>    test_pass <span class="op">=</span> <span class="va">True</span></span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>    recommends <span class="op">=</span> get_recommends(<span class="st">"Where the Heart Is (Oprah's Book Club (Paperback))"</span>)</span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> recommends[<span class="dv">0</span>] <span class="op">!=</span> <span class="st">"Where the Heart Is (Oprah's Book Club (Paperback))"</span>:</span>
-<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>        test_pass <span class="op">=</span> <span class="va">False</span></span>
-<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>    recommended_books <span class="op">=</span> [</span>
-<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>        <span class="st">"I'll Be Seeing You"</span>,</span>
-<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>        <span class="st">"The Weight of Water"</span>,</span>
-<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>        <span class="st">"The Surgeon"</span>,</span>
-<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>        <span class="st">"I Know This Much Is True"</span>,</span>
-<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>    ]</span>
-<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>    recommended_books_dist <span class="op">=</span> [<span class="fl">0.8</span>, <span class="fl">0.77</span>, <span class="fl">0.77</span>, <span class="fl">0.77</span>]</span>
-<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">2</span>):</span>
-<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> recommends[<span class="dv">1</span>][i][<span class="dv">0</span>] <span class="kw">not</span> <span class="kw">in</span> recommended_books:</span>
-<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>            test_pass <span class="op">=</span> <span class="va">False</span></span>
-<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="bu">abs</span>(recommends[<span class="dv">1</span>][i][<span class="dv">1</span>] <span class="op">-</span> recommended_books_dist[i]) <span class="op">&gt;=</span> <span class="fl">0.05</span>:</span>
-<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a>            test_pass <span class="op">=</span> <span class="va">False</span></span>
-<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> test_pass:</span>
-<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"You passed the challenge! 🎉🎉🎉🎉🎉"</span>)</span>
-<span id="cb18-26"><a href="#cb18-26" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
-<span id="cb18-27"><a href="#cb18-27" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"You haven't passed yet. Keep trying!"</span>)</span>
-<span id="cb18-28"><a href="#cb18-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-29"><a href="#cb18-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-30"><a href="#cb18-30" aria-hidden="true" tabindex="-1"></a>test_book_recommendation()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-14" class="cell" data-cell_id="d2e167885a54449bbf3e7404415cf883" data-deepnote_cell_type="code" data-deepnote_to_be_reexecuted="true" data-execution_millis="13" data-execution_start="1689267854013" data-source_hash="null" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>books <span class="op">=</span> get_recommends(<span class="st">"Where the Heart Is (Oprah's Book Club (Paperback))"</span>)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pprint</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>pprint.pprint(books)</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> test_book_recommendation():</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>    test_pass <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>    recommends <span class="op">=</span> get_recommends(<span class="st">"Where the Heart Is (Oprah's Book Club (Paperback))"</span>)</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> recommends[<span class="dv">0</span>] <span class="op">!=</span> <span class="st">"Where the Heart Is (Oprah's Book Club (Paperback))"</span>:</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>        test_pass <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>    recommended_books <span class="op">=</span> [</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>        <span class="st">"I'll Be Seeing You"</span>,</span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>        <span class="st">"The Weight of Water"</span>,</span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>        <span class="st">"The Surgeon"</span>,</span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>        <span class="st">"I Know This Much Is True"</span>,</span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>    recommended_books_dist <span class="op">=</span> [<span class="fl">0.8</span>, <span class="fl">0.77</span>, <span class="fl">0.77</span>, <span class="fl">0.77</span>]</span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">2</span>):</span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> recommends[<span class="dv">1</span>][i][<span class="dv">0</span>] <span class="kw">not</span> <span class="kw">in</span> recommended_books:</span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a>            test_pass <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="bu">abs</span>(recommends[<span class="dv">1</span>][i][<span class="dv">1</span>] <span class="op">-</span> recommended_books_dist[i]) <span class="op">&gt;=</span> <span class="fl">0.05</span>:</span>
+<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a>            test_pass <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> test_pass:</span>
+<span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"You passed the challenge! 🎉🎉🎉🎉🎉"</span>)</span>
+<span id="cb17-26"><a href="#cb17-26" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb17-27"><a href="#cb17-27" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"You haven't passed yet. Keep trying!"</span>)</span>
+<span id="cb17-28"><a href="#cb17-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-29"><a href="#cb17-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-30"><a href="#cb17-30" aria-hidden="true" tabindex="-1"></a>test_book_recommendation()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>["Where the Heart Is (Oprah's Book Club (Paperback))",
  [['The Weight of Water', np.float32(0.77085835)],
