@@ -1,11 +1,15 @@
 [
   {
-    "listing": "/certificates.html",
-    "items": []
-  },
-  {
-    "listing": "/software.html",
-    "items": []
+    "listing": "/projects1.html",
+    "items": [
+      "/projects/sea_level_predictor.html",
+      "/projects/medical_data_visualizer.html",
+      "/projects/FCC-spam-classifier-2.html",
+      "/projects/time_series_visualizer.html",
+      "/projects/FCC-health-costs-predictor.html",
+      "/projects/bLSTM-toxicity-classifier-RU.html",
+      "/projects/FCC-book-recommendation.html"
+    ]
   },
   {
     "listing": "/blog.html",
@@ -14,31 +18,27 @@
     ]
   },
   {
-    "listing": "/projects.html",
-    "items": [
-      "/projects/bLSTM-toxicity-classifier-RU.html",
-      "/projects/sea_level_predictor.html",
-      "/projects/FCC-spam-classifier-2.html",
-      "/projects/FCC-book-recommendation.html",
-      "/projects/FCC-health-costs-predictor.html",
-      "/projects/time_series_visualizer.html",
-      "/projects/medical_data_visualizer.html"
-    ]
-  },
-  {
     "listing": "/notes.html",
     "items": []
   },
   {
-    "listing": "/projects1.html",
+    "listing": "/certificates.html",
+    "items": []
+  },
+  {
+    "listing": "/projects.html",
     "items": [
-      "/projects/bLSTM-toxicity-classifier-RU.html",
       "/projects/sea_level_predictor.html",
+      "/projects/medical_data_visualizer.html",
       "/projects/FCC-spam-classifier-2.html",
-      "/projects/FCC-book-recommendation.html",
-      "/projects/FCC-health-costs-predictor.html",
       "/projects/time_series_visualizer.html",
-      "/projects/medical_data_visualizer.html"
+      "/projects/FCC-health-costs-predictor.html",
+      "/projects/bLSTM-toxicity-classifier-RU.html",
+      "/projects/FCC-book-recommendation.html"
     ]
+  },
+  {
+    "listing": "/software.html",
+    "items": []
   }
 ]
