@@ -7,7 +7,7 @@ website:
   navbar:
     right:
       - text: CV
-        url: https://app.enhancv.com/share/2619c338/?utm_medium=growth&utm_campaign=share-resume&utm_source=dynamic
+        url: https://registry.jsonresume.org/sergeyyurkov1?theme=macchiato
         target: _blank
       - software.qmd
       # - projects.qmd
@@ -16,6 +16,9 @@ website:
         target: _blank
       - certificates.qmd
       # - notes.qmd
+      # - text: Notes
+      #   url: https://sergeyyurkov1.github.io/blog-notes/intro.html
+      #   target: _blank
 
   # comments:
   #   utterances:

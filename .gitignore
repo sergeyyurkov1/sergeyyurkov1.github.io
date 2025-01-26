@@ -4,4 +4,6 @@
 *.zip
 *.tsv
 *.csv
+*.xlsx
+*.db
 docs

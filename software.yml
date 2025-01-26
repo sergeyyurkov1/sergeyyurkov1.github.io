@@ -1,6 +1,6 @@
 - title: Neural Network from Scratch in Cangjie
   href: https://blog.csdn.net/sergeyyurkov1/article/details/144308219
-  thumbnail: project_images/3e65f802190a456bbc618faf5c22a31b.png
+  thumbnail: project_images/3e65f802190a456bbc618faf5c22a31b-2.png
   description: Recreation of an artificial neural network described in the book Neural Networks from Scratch by Harrison Kinsley in Cangjie instead of Python.
 - title: Numcj - Numpy alternative for Cangjie
   href: https://sergeyyurkov1.github.io/numcj/
