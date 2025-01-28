@@ -48,6 +48,10 @@
   href: projects/bLSTM-toxicity-classifier-RU.html
   thumbnail: projects/screenshot-rocks-k.png
   # description:
+- title: ADS-B Tracker
+  href: https://ads-b-tracker.onrender.com/
+  thumbnail: project_images/screenshot-rocks-10.png
+  description: Simple flight tracker and weather radar
 
 - title: PDF Summarizer & Renamer
   href: https://github.com/sergeyyurkov1/NLP
@@ -61,10 +65,6 @@
   href: https://github.com/sergeyyurkov1/OCR-2
   thumbnail: project_images/Snipaste_2024-04-10_14-41-42.png
   description: OCR application with the ability to identify and repair damaged and encrypted files -- tested on thousands of archived documents.<br /><br />Main features:<br />- Tesseract engine<br />- OCR settings panel<br />- Blockchain that keeps track of file changes<br />- Log panel for debugging<br />- CRON-like scheduling<br />- Ability to mark files for redoing OCR with another method on the next run<br />- Desktop+Mobile UI
-- title: ADS-B Tracker
-  # href:
-  thumbnail: project_images/screenshot-rocks-10.png
-  description: Simple flight tracker and weather radar
 - title: File Copier
   href: https://github.com/sergeyyurkov1/file-copier
   thumbnail: project_images/Snipaste_2024-03-23_23-03-04.png
@@ -82,10 +82,10 @@
   thumbnail: project_images/screenshot-rocks-5.png
   description: Play against the computer and see your highscore.
 - title: APIs
-  # href:
+  href: https://sy-apis.onrender.com/
   thumbnail: project_images/screenshot-rocks-11.png
   description: Collection of data endpoints for my projects. Uses FastAPI with OpenAPI specification and PostgreSQL for data caching.
-- title: Telegram bot
-  # href:
-  thumbnail: project_images/06.jpg
-  description: A multi-tool for my internet needs
+# - title: Telegram bot
+#   # href:
+#   thumbnail: project_images/06.jpg
+#   description: A multi-tool for my internet needs
