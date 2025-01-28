@@ -83,7 +83,7 @@
   description: Play against the computer and see your highscore.
 - title: APIs
   # href:
-  thumbnail: project_images/05.jpg
+  thumbnail: project_images/screenshot-rocks-11.png
   description: Collection of data endpoints for my projects. Uses FastAPI with OpenAPI specification and PostgreSQL for data caching.
 - title: Telegram bot
   # href:
