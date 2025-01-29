@@ -1,5 +1,5 @@
 - title: Neural Network from Scratch in Cangjie
-  href: https://blog.csdn.net/sergeyyurkov1/article/details/144308219
+  href: https://blog.csdn.net/sergeyyurkov1/article/details/144570613
   thumbnail: project_images/3e65f802190a456bbc618faf5c22a31b-2.png
   description: Recreation of an artificial neural network described in the book Neural Networks from Scratch by Harrison Kinsley in Cangjie instead of Python.
 - title: Numcj - Numpy alternative for Cangjie
@@ -72,7 +72,8 @@
 - title: Drawing for Two
   href: https://sy-static-st.onrender.com/drawing_for_two
   thumbnail: project_images/vlcsnap-2025-01-29-20h29m43s781.png
-  description: A shared drawing app for two... maybe even three. Made with Websockets and a custom Flask server. https://www.bilibili.com/video/BV1a9FKecEvN/
+  description: A shared drawing app for two... maybe even three. Made with Websockets and a custom Flask server.
+  href2: https://www.bilibili.com/video/BV1a9FKecEvN/
 - title: Peer-to-peer Conference App
   href: https://peerjs-wine.vercel.app/#/
   thumbnail: project_images/screenshot-rocks-4.png

@@ -23,6 +23,14 @@
     <% if (item.description) { %>
     <div class="py-1 px-2">
       <small class="card-text"><%= item.description %></small>
+      <% if (item.href2) { %>
+      <br />
+      <br />
+      <small class="card-text">
+        Demo:
+        <a href="<%- item.href2 %>" target="_blank"><%= item.href2 %></a>
+      </small>
+      <% } %>
     </div>
     <% } %>
   </div>
