@@ -74,11 +74,11 @@
   thumbnail: project_images/screenshot-rocks-3.png
   description: A shared drawing app for two... maybe even three. Made with Websockets and a custom Flask server.
 - title: Peer-to-peer Conference App
-  # href:
+  href: https://peerjs-wine.vercel.app/#/
   thumbnail: project_images/screenshot-rocks-4.png
   description: An installable multi peer-to-peer conference PWA that includes video chat capability, screen-sharing on desktop, sending messages and images. Made with Vue, WebRTC and a custom STUN server.
 - title: Rock Paper Scissors Lizard Spock Game
-  # href:
+  href: https://rock-paper-scissors-lizard-spock-orpin.vercel.app/
   thumbnail: project_images/screenshot-rocks-5.png
   description: Play against the computer and see your highscore.
 - title: APIs
