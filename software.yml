@@ -62,7 +62,7 @@
   thumbnail: project_images/Snipaste_2024-04-10_14-07-34.png
   description: Native app written in Python and web GUI that searches for lowest price products in the shopping list in German supermarkets and prepares a detailed report.<br /><br />Main features:<br />- ZIP code selection<br />- System to filter out unwanted results<br />- Blacklist function to assist the filter<br />- Excel export<br />- The ability to mark lowest price either by the item searched or by product name<br />- Responsive UI
 - title: Custom document management system
-  href: https://github.com/sergeyyurkov1/OCR-2
+  href: https://github.com/sergeyyurkov1/OCR-GUI
   thumbnail: project_images/Snipaste_2024-04-10_14-41-42.png
   description: OCR application with the ability to identify and repair damaged and encrypted files -- tested on thousands of archived documents.<br /><br />Main features:<br />- Tesseract engine<br />- OCR settings panel<br />- Blockchain that keeps track of file changes<br />- Log panel for debugging<br />- CRON-like scheduling<br />- Ability to mark files for redoing OCR with another method on the next run<br />- Desktop+Mobile UI
 - title: File Copier
