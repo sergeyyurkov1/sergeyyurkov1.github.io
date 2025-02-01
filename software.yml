@@ -36,18 +36,18 @@
 #   href: projects/FCC-spam-classifier-2.html
 #   thumbnail: projects/screenshot-rocks-k.png
 #   # description:
-- title: Health Costs Predictor Model
-  href: projects/FCC-health-costs-predictor.html
-  thumbnail: project_images/7775262_3746188.jpg
-  # description:
+# - title: Health Costs Predictor Model
+#   href: projects/FCC-health-costs-predictor.html
+#   thumbnail: project_images/7775262_3746188.jpg
+#   # description:
 - title: Book Recommendation Model
   href: projects/FCC-book-recommendation.html
   thumbnail: projects/screenshot-rocks-s.png
   # description:
-- title: Toxicity Classifier in Russian
-  href: projects/bLSTM-toxicity-classifier-RU.html
-  thumbnail: projects/screenshot-rocks-k.png
-  # description:
+# - title: Toxicity Classifier in Russian
+#   href: projects/bLSTM-toxicity-classifier-RU.html
+#   thumbnail: projects/screenshot-rocks-k.png
+#   # description:
 - title: ADS-B Tracker
   href: https://ads-b-tracker.onrender.com/
   thumbnail: project_images/screenshot-rocks-10.png
